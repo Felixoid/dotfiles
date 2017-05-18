@@ -1,0 +1,29 @@
+# The following lines were added by compinstall
+
+zstyle ':completion:*' completer _complete _ignored _approximate
+zstyle ':completion:*' max-errors 1
+zstyle ':completion:*' menu select
+zstyle ':completion:*:commands' rehash 1
+zstyle :compinstall filename "${HOME}/.zshrc"
+
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall
+# Lines configured by zsh-newuser-install
+# End of lines configured by zsh-newuser-install
+
+bindkey -v
+bindkey -M viins '\e.' insert-last-word
+bindkey "^W" backward-kill-word
+bindkey '^K' unlock-rsa
+bindkey "^[[A" history-beginning-search-backward
+bindkey "^[[B" history-beginning-search-forward
+
+#experiment
+case ${TERM} in
+  xterm*)
+    precmd () {print -Pn "\e]0;%5~\a"}
+    ;;
+esac
+
+[ -f ${HOME}/.shellsrc ] && . ${HOME}/.shellsrc

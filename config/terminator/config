@@ -1,0 +1,27 @@
+[global_config]
+  focus = system
+  inactive_color_offset = 0.75
+  title_inactive_bg_color = "#2e3436"
+  title_inactive_fg_color = "#babdb6"
+  title_transmit_bg_color = "#480d57"
+[keybindings]
+  broadcast_all = None
+  broadcast_off = <Primary><Alt>o
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
+[profiles]
+  [[default]]
+    background_color = "#181818"
+    cursor_color = "#aaaaaa"
+    font = Monaco for Powerline 10.5
+    foreground_color = "#d3d7cf"
+    palette = "#282a2d:#a54242:#6e9440:#de935f:#5f819d:#85678f:#5e8d87:#b0b0b0:#373b41:#cc6666:#b5bd68:#f0c674:#7291ac:#b294bb:#8abeb7:#cccccc"
+    scrollback_lines = 100000
+    use_system_font = False

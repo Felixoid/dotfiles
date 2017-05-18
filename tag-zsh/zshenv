@@ -1,0 +1,37 @@
+# History settings
+setopt HIST_IGNORE_SPACE
+setopt HIST_IGNORE_ALL_DUPS
+HISTFILE=~/.histfile
+HISTSIZE=100000
+SAVEHIST=100000
+
+# Vim modes lag
+export KEYTIMEOUT=1
+
+# SSH ask pass with GUI
+export SSH_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+
+#Prompts
+function prompt_char {
+    git branch >/dev/null 2>&1 && echo '±' && return
+    svn info >/dev/null 2>&1 && echo 'ƨ' && return
+    hg root >/dev/null 2>&1 && echo '☿' && return
+    echo 'ѳ'
+}
+
+function zle-line-init zle-keymap-select {
+    USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 7 % 8))
+    HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 7 % 8))
+    case $KEYMAP in
+      viins|main)  VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
+      vicmd)  VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
+    esac
+    export PS1="%(?..%F{1})[%D{%H:%M:%S}]%f %(!.%F{1}%B%n@%m%b%f.%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f):%2~ ${VI} "
+    RPROMPT="%(?..%F{1}[e:%?]%f)"
+    zle reset-prompt
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+unlock-rsa() {/usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q}
+zle -N unlock-rsa

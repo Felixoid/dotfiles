@@ -1,0 +1,61 @@
+# PATH
+export PATH=$PATH:$HOME/bin
+
+# GO
+export GOPATH=$HOME/OPT/go
+export GOROOT="/usr/lib/go"
+
+# EDITOR
+export EDITOR=vim
+
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# keychain
+[ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
+[ -f $HOME/.keychain/$(hostname -s)-sh ] && . $HOME/.keychain/$(hostname -s)-sh
+
+# password generator
+genpasswd() {
+  local l=$1
+  [[ "$l" == "" ]] && l=16
+  tr -dc 'A-Za-z0-9_!@#$%^&*()' < /dev/urandom | head -c ${l} | xargs
+}
+
+# work rcs
+if [ -r $HOME/.yandexrc ]
+then for rc in $HOME/.yandexrc/*
+    do [ -r $rc ] && . $rc
+    done
+fi
+
+alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'
+
+#gnupg.vim
+export GPG_TTY=`tty`
+
+#english git
+alias git="LC_ALL=en_US.UTF-8 git"
+
+#cvs over ssh
+export CVS_RSH=ssh
+
+# docker build cont
+dobuild() {
+  SSH_INT=/tmp/ssh.sock
+  docker run -w $(pwd) -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_INT -v $SSH_AUTH_SOCK:$SSH_INT -v /home:/home -u felixoid --rm -i -t debuild:${REL:-trusty} $@
+}
+
+# less pipe
+export LESSOPEN="|/usr/bin/lesspipe.sh %s"
+export LESS_ADVANCED_PREPROCESSOR=1
+
+# dns-monkey alias
+alias dns-client=dns-monkey.pl

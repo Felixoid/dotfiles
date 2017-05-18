@@ -1,0 +1,20 @@
+call plug#begin()
+Plug 'vim-scripts/Conque-GDB'
+Plug 'Raimondi/delimitMate'
+Plug 'nanotech/jellybeans.vim'
+Plug 'Shougo/neocomplete'
+Plug 'scrooloose/nerdtree'
+Plug 'python-mode/python-mode',{ 'branch': 'master' }
+Plug 'luochen1990/rainbow'
+Plug 'saltstack/salt-vim'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+Plug 'jamessan/vim-gnupg'
+Plug 'fatih/vim-go'
+Plug 'Glench/Vim-Jinja2-Syntax'
+Plug 'tpope/vim-surround'
+Plug 'mattn/webapi-vim'
+Plug 'vim-scripts/Arduino-syntax-file'
+Plug 'coddingtonbear/neomake-platformio'
+Plug 'chr4/nginx.vim'
+call plug#end()
