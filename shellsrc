@@ -18,9 +18,12 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# keychain
-[ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
-[ -f $HOME/.keychain/$(hostname -s)-sh ] && . $HOME/.keychain/$(hostname -s)-sh
+# keychain, only on bare host
+if [ -z "$DOCKER" ]
+then
+  [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
+  [ -f $HOME/.keychain/$(hostname -s)-sh ] && . $HOME/.keychain/$(hostname -s)-sh
+fi
 
 # password generator
 genpasswd() {
