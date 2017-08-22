@@ -7,6 +7,7 @@
 [keybindings]
   broadcast_all = None
   broadcast_off = <Primary><Alt>o
+  help = <Alt>F1
   hide_window = None
 [layouts]
   [[default]]
