@@ -53,7 +53,7 @@ export CVS_RSH=ssh
 # docker build cont
 dobuild() {
   SSH_INT=/tmp/ssh.sock
-  docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_INT -v $SSH_AUTH_SOCK:$SSH_INT -v /home:/home -u felixoid --rm -i -t debuild:${REL:-trusty} $@
+  docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_INT -v $SSH_AUTH_SOCK:$SSH_INT -v /home:/home -u felixoid --rm -i -t debuild:${REL:-jessie} $@
 }
 
 # less pipe
