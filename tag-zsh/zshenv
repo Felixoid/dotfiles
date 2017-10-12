@@ -19,6 +19,12 @@ function prompt_char {
     echo 'ѳ'
 }
 
+if [ -f /usr/lib/zsh-git-prompt/zshrc.sh ]
+  then source /usr/lib/zsh-git-prompt/zshrc.sh
+    _GIT_PROMPT_ENABLED=true
+  else _GIT_PROMPT_ENABLED=false
+fi
+
 function zle-line-init zle-keymap-select {
     USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 7 % 8))
     HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 7 % 8))
@@ -27,7 +33,10 @@ function zle-line-init zle-keymap-select {
       vicmd)  VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
     esac
     export PS1="%(?..%F{1})[%D{%H:%M:%S}]%f %(!.%F{1}%B%n@%m%b%f.%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f):%2~ ${VI} "
-    RPROMPT="%(?..%F{1}[e:%?]%f)"
+    if $_GIT_PROMPT_ENABLED
+      then RPROMPT="$(git_super_status)%(?..%F{1}[e:%?]%f)"
+      else RPROMPT="%(?..%F{1}[e:%?]%f)"
+    fi
     zle reset-prompt
 }
 zle -N zle-line-init
