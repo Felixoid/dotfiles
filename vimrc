@@ -19,7 +19,7 @@ set number
 set relativenumber
 set linebreak
 
-" tabs
+" tabulation
 set autoindent
 set expandtab
 set ts=4
@@ -29,6 +29,11 @@ set sts=2
 " Airline
 let g:airline_theme='base16_ashes'
 set laststatus=2
+let g:airline#extensions#vimagit#enabled=1
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#keymap#enabled=0
+" more compact position section
+let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
 
 " Necocompete
 set completeopt-=preview
@@ -39,6 +44,13 @@ let g:neocomplete#enable_auto_select = 1
 let g:rainbow_active = 1
 let g:rainbow_operators = 1
 set clipboard-=autoselect
+
+" NERDTree
+let g:NERDTreeWinSize=22
+autocmd vimenter * NERDTree
+" and back to last window
+autocmd VimEnter * wincmd p
+
 
 " function to change file encoding
 function! ChangeFileencoding()
