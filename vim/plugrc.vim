@@ -13,6 +13,7 @@ Plug 'puppetlabs/puppet-syntax-vim'
 Plug 'python-mode/python-mode',{ 'branch': 'master' }
 Plug 'saltstack/salt-vim'
 Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
