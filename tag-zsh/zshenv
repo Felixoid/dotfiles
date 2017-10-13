@@ -28,15 +28,13 @@ fi
 function zle-line-init zle-keymap-select {
     USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 7 % 8))
     HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 7 % 8))
+    $_GIT_PROMPT_ENABLED && local GIT_SUPER_STATUS="$(git_super_status)"
     case $KEYMAP in
-      viins|main)  VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
-      vicmd)  VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
+      viins|main) local VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
+      vicmd) local VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
     esac
-    export PS1="%(?..%F{1})[%D{%H:%M:%S}]%f %(!.%F{1}%B%n@%m%b%f.%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f):%2~ ${VI} "
-    if $_GIT_PROMPT_ENABLED
-      then RPROMPT="$(git_super_status)%(?..%F{1}[e:%?]%f)"
-      else RPROMPT="%(?..%F{1}[e:%?]%f)"
-    fi
+    export PS1="%(?..%F{1})[%D{%H:%M:%S}]%f %(!.%F{1}%B%n@%m%b%f.%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f):%~/ ${GIT_SUPER_STATUS}"$'\n'"${VI} "
+    RPROMPT="%(?..%F{1}[e:%?]%f)"
     zle reset-prompt
 }
 zle -N zle-line-init
