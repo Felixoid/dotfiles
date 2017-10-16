@@ -8,10 +8,10 @@ zstyle ':completion:*:hosts' rehash true
 # Looking for all known_hosts* except *.old
 if [[ $options[extended_glob] = on ]]
 then
-  zstyle ':completion:*' known-hosts-files ~/.ssh/knoswn_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
+  zstyle ':completion:*' known-hosts-files ~/.ssh/known_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
 else
   setopt EXTENDED_GLOB
-  zstyle ':completion:*' known-hosts-files ~/.ssh/knoswn_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
+  zstyle ':completion:*' known-hosts-files ~/.ssh/known_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
   unsetopt EXTENDED_GLOB
 fi
 
