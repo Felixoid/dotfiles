@@ -1,10 +1,19 @@
 # The following lines were added by compinstall
 
+zstyle :compinstall filename "${HOME}/.zshrc"
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' max-errors 1
 zstyle ':completion:*' menu select
-zstyle ':completion:*:commands' rehash 1
-zstyle :compinstall filename "${HOME}/.zshrc"
+zstyle ':completion:*:hosts' rehash true
+# Looking for all known_hosts* except *.old
+if [[ $options[extended_glob] = on ]]
+then
+  zstyle ':completion:*' known-hosts-files ~/.ssh/knoswn_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
+else
+  setopt EXTENDED_GLOB
+  zstyle ':completion:*' known-hosts-files ~/.ssh/knoswn_hosts*~*.old(N) /etc/ssh/ssh_known_hosts
+  unsetopt EXTENDED_GLOB
+fi
 
 autoload -Uz compinit
 compinit
