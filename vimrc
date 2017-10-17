@@ -47,9 +47,7 @@ set clipboard-=autoselect
 
 " NERDTree
 let g:NERDTreeWinSize=22
-autocmd vimenter * NERDTree
-" and back to last window
-autocmd VimEnter * wincmd p
+let g:nerdtree_tabs_open_on_console_startup=1
 
 
 " function to change file encoding
