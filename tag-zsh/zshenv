@@ -36,6 +36,8 @@ function zle-line-init zle-keymap-select {
     export PS1="%(?..%F{1})[%D{%H:%M:%S}]%f %(!.%F{1}%B%n@%m%b%f.%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f):%~/ ${GIT_SUPER_STATUS}"$'\n'"${VI} "
     RPROMPT="%(?..%F{1}[e:%?]%f)"
     zle reset-prompt
+    # this line fixes the issue with errasing last line in vim mode by Alt+A or Alt+I
+    zle -R
 }
 zle -N zle-line-init
 zle -N zle-keymap-select
