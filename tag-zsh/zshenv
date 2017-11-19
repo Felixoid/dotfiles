@@ -26,8 +26,8 @@ if [ -f /usr/lib/zsh-git-prompt/zshrc.sh ]
 fi
 
 function zle-line-init zle-keymap-select {
-    USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 7 % 8))
-    HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 7 % 8))
+    USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
+    HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
     $_GIT_PROMPT_ENABLED && local GIT_SUPER_STATUS="$(git_super_status)"
     case $KEYMAP in
       viins|main) local VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
