@@ -1,5 +1,5 @@
 # PATH
-export PATH=$PATH:$HOME/bin
+[[ $PATH == *"$HOME/bin"* ]] || export PATH=$PATH:$HOME/bin
 
 # GO
 export GOPATH=$HOME/OPT/go
