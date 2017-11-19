@@ -2,6 +2,8 @@ call plug#begin()
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Raimondi/delimitMate'
 Plug 'Shougo/neocomplete'
+Plug 'Shougo/neosnippet-snippets'
+Plug 'Shougo/neosnippet.vim'
 Plug 'chr4/nginx.vim'
 Plug 'coddingtonbear/neomake-platformio'
 Plug 'fatih/vim-go'

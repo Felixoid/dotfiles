@@ -92,6 +92,7 @@ au FileType go set noexpandtab
 au FileType go set ts=4
 au FileType go set sw=4
 au FileType go set sts=4
+au FileType go let g:go_snippet_engine = "neosnippet"
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b :GoBuild!
 au FileType go nmap <leader>t <Plug>(go-test)
