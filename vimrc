@@ -104,3 +104,7 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 
 " puppet
 " see ~/.vim/after/plugin/puppet-tabular.vim
+au FileType puppet set expandtab
+au FileType puppet set ts=4
+au FileType puppet set sw=4
+au FileType puppet set sts=4

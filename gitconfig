@@ -1,0 +1,17 @@
+[user]
+	email = mr.felixoid@gmail.com
+	name = felixoid
+[merge]
+	tool = vimdiff
+[diff]
+	tool = vimdiff
+[push]
+	default = simple
+[core]
+	excludesfile = ~/.gitignore
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	required = true
+[includeIf "gitdir:~/OPT/InnoGames/"]
+	path = ~/OPT/InnoGames/.gitconfig
