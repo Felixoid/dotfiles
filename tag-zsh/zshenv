@@ -26,6 +26,7 @@ if [ -f /usr/lib/zsh-git-prompt/zshrc.sh ]
 fi
 
 function zle-line-init zle-keymap-select {
+    # I want to avoid black color, that's why '% 7 + 1'
     USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
     HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
     $_GIT_PROMPT_ENABLED && local GIT_SUPER_STATUS="$(git_super_status)"
