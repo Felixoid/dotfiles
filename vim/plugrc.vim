@@ -23,4 +23,5 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'vim-scripts/Arduino-syntax-file'
 Plug 'vim-scripts/Conque-GDB'
+Plug 'vim-syntastic/syntastic'
 call plug#end()
