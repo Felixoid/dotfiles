@@ -47,7 +47,12 @@ set clipboard-=autoselect
 
 " NERDTree
 let g:NERDTreeWinSize=22
-let g:nerdtree_tabs_open_on_console_startup=1
+if @% != " "
+	au VimEnter * NERDTreeTabsToggle
+	au VimEnter * NERDTreeFocusToggle
+else
+	let g:nerdtree_tabs_open_on_console_startup=1
+endif
 
 
 " function to change file encoding
@@ -110,3 +115,6 @@ au FileType puppet set expandtab
 au FileType puppet set ts=4
 au FileType puppet set sw=4
 au FileType puppet set sts=4
+
+" syntastic
+let g:syntastic_check_on_open = 1
