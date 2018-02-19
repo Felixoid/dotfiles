@@ -47,11 +47,10 @@ set clipboard-=autoselect
 
 " NERDTree
 let g:NERDTreeWinSize=22
-if @% != " "
-	au VimEnter * NERDTreeTabsToggle
+let g:nerdtree_tabs_open_on_console_startup = 1
+if @% == ""
+	au VimEnter * NERDTreeTabsOpen
 	au VimEnter * NERDTreeFocusToggle
-else
-	let g:nerdtree_tabs_open_on_console_startup=1
 endif
 
 
