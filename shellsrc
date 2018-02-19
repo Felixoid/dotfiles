@@ -7,6 +7,7 @@ export GOROOT="/usr/lib/go"
 
 # EDITOR
 export EDITOR=vim
+export VISUAL=vim
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
