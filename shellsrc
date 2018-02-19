@@ -18,10 +18,10 @@ if [ -x /usr/bin/dircolors ]; then
     alias egrep='egrep --color=auto'
 fi
 
-# keychain, only on bare host
-if [ -z "$DOCKER" ]
+# keychain, only if SSH_* undefined
+[ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
+if [ -z "$SSH_AUTH_SOCK" -a -z "$SSH_AGENT_PID" ]
 then
-  [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
   [ -f $HOME/.keychain/$(hostname -s)-sh ] && . $HOME/.keychain/$(hostname -s)-sh
 fi
 
@@ -54,6 +54,9 @@ export CVS_RSH=ssh
 dobuild() {
   SSH_INT=/tmp/ssh.sock
   docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_INT -v $SSH_AUTH_SOCK:$SSH_INT -v /home:/home -u felixoid --rm -i -t debuild:${REL:-jessie} $@
+}
+dorun() {
+  docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v /home:/home -u $UID:$GID -v /etc/passwd:/etc/passwd --rm -it $@
 }
 
 # less pipe
