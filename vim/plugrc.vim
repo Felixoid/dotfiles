@@ -1,9 +1,13 @@
 call plug#begin()
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Raimondi/delimitMate'
-Plug 'Shougo/neocomplete'
+" completion
+Plug 'Shougo/deoplete.nvim'
+Plug 'roxma/nvim-yarp'
+Plug 'roxma/vim-hug-neovim-rpc'
 Plug 'Shougo/neosnippet-snippets'
 Plug 'Shougo/neosnippet.vim'
+
 Plug 'chr4/nginx.vim'
 Plug 'coddingtonbear/neomake-platformio'
 Plug 'fatih/vim-go'
@@ -12,6 +16,7 @@ Plug 'jamessan/vim-gnupg'
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'luochen1990/rainbow'
 Plug 'mattn/webapi-vim'
+Plug 'majutsushi/tagbar'
 Plug 'nanotech/jellybeans.vim'
 Plug 'python-mode/python-mode',{ 'branch': 'master' }
 Plug 'rodjek/vim-puppet'

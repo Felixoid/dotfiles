@@ -35,10 +35,11 @@ let g:airline#extensions#keymap#enabled=0
 " more compact position section
 let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
 
-" Necocompete
-set completeopt-=preview
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_auto_select = 1
+" Deoplete, only if neovim installed
+if exists(':pythonx import neovim')
+  let g:deoplete#enable_at_startup = 1
+  let g:deoplete#tag#cache_limit_size = 10000000
+endif
 
 " Rainbow
 let g:rainbow_active = 1
@@ -49,24 +50,24 @@ set clipboard-=autoselect
 let g:NERDTreeWinSize=22
 let g:nerdtree_tabs_open_on_console_startup = 1
 if @% == ""
-	au VimEnter * NERDTreeTabsOpen
-	au VimEnter * NERDTreeFocusToggle
+  au VimEnter * NERDTreeTabsOpen
+  au VimEnter * NERDTreeFocusToggle
 endif
 
 
 " function to change file encoding
 function! ChangeFileencoding()
-	let encodings = ['cp1251', 'koi8-r', 'cp866', 'utf8']
-	let prompt_encs = []
-	let index = 0
-	while index < len(encodings)
-		call add(prompt_encs, index.'. '.encodings[index])
-		let index = index + 1
-	endwhile
-	let choice = inputlist(prompt_encs)
-	if choice >= 0 && choice < len(encodings)
-		execute 'e ++enc='.encodings[choice].' %:p'
-	endif
+  let encodings = ['cp1251', 'koi8-r', 'cp866', 'utf8']
+  let prompt_encs = []
+  let index = 0
+  while index < len(encodings)
+    call add(prompt_encs, index.'. '.encodings[index])
+    let index = index + 1
+  endwhile
+  let choice = inputlist(prompt_encs)
+  if choice >= 0 && choice < len(encodings)
+    execute 'e ++enc='.encodings[choice].' %:p'
+  endif
 endf
 nmap <F8> :call ChangeFileencoding()<CR>
 
@@ -114,6 +115,10 @@ au FileType puppet set expandtab
 au FileType puppet set ts=4
 au FileType puppet set sw=4
 au FileType puppet set sts=4
+au FileType puppet nnoremap <c-]> :exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
+au FileType puppet nnoremap <c-w><c-]> :tab split<CR>:exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
 
 " syntastic
 let g:syntastic_check_on_open = 1
+
+set tags=tags
