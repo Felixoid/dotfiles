@@ -1,0 +1,2 @@
+SYMLINK_DIRS="vim config/terminator"
+TAGS="zsh dmz"
