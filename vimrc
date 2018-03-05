@@ -97,7 +97,7 @@ au FileType go set noexpandtab
 au FileType go set ts=4
 au FileType go set sw=4
 au FileType go set sts=4
-au FileType go let g:go_snippet_engine = "neosnippet"
+" au FileType go let g:go_snippet_engine = "neosnippet"
 au FileType go nmap <leader>r <Plug>(go-run)
 au FileType go nmap <leader>b :GoBuild!<CR>
 au FileType go nmap <leader>t <Plug>(go-test)
@@ -121,4 +121,11 @@ au FileType puppet nnoremap <c-w><c-]> :tab split<CR>:exe "tag " . substitute(ex
 " syntastic
 let g:syntastic_check_on_open = 1
 
-set tags=tags
+" YouCompleteMe
+let g:ycm_collect_identifiers_from_tags_files = 1
+
+" vim-gutentags
+set tags+=tags;/
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['tags']
