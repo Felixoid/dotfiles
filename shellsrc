@@ -20,10 +20,10 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # keychain, only if SSH_* undefined
-[ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 $HOME/.ssh/*_rsa -q
-if [ -z "$SSH_AUTH_SOCK" -a -z "$SSH_AGENT_PID" ]
+[ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 "$HOME"/.ssh/*_rsa -q
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]
 then
-  [ -f $HOME/.keychain/$(hostname -s)-sh ] && . $HOME/.keychain/$(hostname -s)-sh
+  [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
 fi
 
 # password generator
@@ -34,16 +34,17 @@ genpasswd() {
 }
 
 # work rcs
-if [ -r $HOME/.yandexrc ]
-then for rc in $HOME/.yandexrc/*
-    do [ -r $rc ] && . $rc
+if [ -r "$HOME/.yandexrc" ]
+then for rc in "$HOME/.yandexrc/"*
+    do [ -r "$rc" ] && . "$rc"
     done
 fi
 
 alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'
 
 #gnupg.vim
-export GPG_TTY=`tty`
+GPG_TTY="$(tty)"
+export GPG_TTY
 
 #english git
 alias git="LC_ALL=en_US.UTF-8 git"
@@ -53,11 +54,10 @@ export CVS_RSH=ssh
 
 # docker build cont
 dobuild() {
-  SSH_INT=/tmp/ssh.sock
-  docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_INT -v $SSH_AUTH_SOCK:$SSH_INT -v /home:/home -u felixoid --rm -i -t debuild:${REL:-jessie} $@
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it debuild:"${REL:-jessie}" "$@"
 }
 dorun() {
-  docker run -w $(pwd) --network=host -e GPG_TTY=$GPG_TTY -e SSH_AUTH_SOCK=$SSH_AUTH_SOCK -v $SSH_AUTH_SOCK:$SSH_AUTH_SOCK -v /home:/home -u $UID:$GID -v /etc/passwd:/etc/passwd --rm -it $@
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it "$@"
 }
 
 # less pipe
