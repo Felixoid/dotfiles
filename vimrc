@@ -117,6 +117,7 @@ au FileType puppet set sw=4
 au FileType puppet set sts=4
 au FileType puppet nnoremap <c-]> :exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
 au FileType puppet nnoremap <c-w><c-]> :tab split<CR>:exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
+au FileType puppet nnoremap <leader><c-]> :tab split<CR>:exe "tselect /" . substitute(expand("<cword>"), "^::", "", "")<CR>
 
 " syntastic
 let g:syntastic_check_on_open = 1
