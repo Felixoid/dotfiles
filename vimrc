@@ -90,6 +90,7 @@ let g:pymode_rope_lookup_project = 1 " recursively search .ropeproject
 let g:pymode_lint_ignore="E501" " ignore 'too long lines'
 let g:pymode_lint = 1
 let g:pymode_options_max_line_length = 119
+let g:pymode_python = 'python3'
 au FileType python setlocal wrap
 
 " vim-go
