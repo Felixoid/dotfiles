@@ -86,7 +86,7 @@ highlight Folded ctermbg=black
 set nospell
 
 " pymode
-let g:pymode_rope_lookup_project = 1 " recursively search .ropeproject
+let g:pymode_rope = 0 " using YouCompleteMe instead of rope
 let g:pymode_lint_ignore="E501" " ignore 'too long lines'
 let g:pymode_lint = 1
 let g:pymode_options_max_line_length = 119
@@ -125,6 +125,7 @@ let g:syntastic_check_on_open = 1
 
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
+let g:ycm_python_binary_path = 'python3'
 
 " vim-gutentags
 set tags+=tags;/
