@@ -1,3 +1,4 @@
+#!/bin/bash
 # PATH
 [[ $PATH == *"$HOME/bin"* ]] || export PATH=$PATH:$HOME/bin
 
@@ -54,10 +55,10 @@ export CVS_RSH=ssh
 
 # docker build cont
 dobuild() {
-  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it debuild:"${REL:-jessie}" "$@"
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it debuild:"${REL:-jessie}" "$@"
 }
 dorun() {
-  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it "$@"
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it "$@"
 }
 
 # less pipe
