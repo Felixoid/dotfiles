@@ -35,12 +35,6 @@ let g:airline#extensions#keymap#enabled=0
 " more compact position section
 let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l%#__restore__#%#__accent_bold#/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
 
-" Deoplete, only if neovim installed
-if exists(':pythonx import neovim')
-  let g:deoplete#enable_at_startup = 1
-  let g:deoplete#tag#cache_limit_size = 10000000
-endif
-
 " Rainbow
 let g:rainbow_active = 1
 let g:rainbow_operators = 1
