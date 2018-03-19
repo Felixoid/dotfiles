@@ -1,1 +1,4 @@
 --fields=+l
+--exclude=*.js
+--exclude=*.css
+--exclude=*.html
