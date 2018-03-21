@@ -46,6 +46,10 @@ if exists(':AddTabularPipeline')
     " payload and join again. Source for this taken from
     " https://unix.stackexchange.com/questions/35787/indent-the-middle-of-multiple-lines
     function! AlignPuppetClass(lines)
+        " If first line doesn't contain `class` do nothing
+        if a:lines[0] !~ "class"
+            return
+        endif
         " List of payload, must contain '$' AND not contain '=>', ignore
         " comments lines
         let attributes = map(copy(a:lines), '(v:val =~ "[$]" && v:val !~ "=>" && v:val !~ "^\s*#") ? v:val : ""')
@@ -65,8 +69,9 @@ if exists(':AddTabularPipeline')
     endfunction
 
     " The class definition could be interrupted with enum's multiline, selectors
-    " or whatever else, so tabular will search for any of `${['",#` symbols and
-    " pass them into AlignPuppetClass function
-    au FileType puppet AddTabularPipeline! puppet_class /[$}['",#]/ AlignPuppetClass(a:lines)
+    " or whatever else, so tabular will search for any of `[$['",#]|class` symbols and
+    " pass them into AlignPuppetClass function. First line have to contain
+    " `class`
+    au FileType puppet AddTabularPipeline! puppet_class /[$['",#]\|class/ AlignPuppetClass(a:lines)
     au FileType puppet inoremap <buffer> <silent> <CR> <Esc>:Tabularize puppet_class<CR>o
 endif
