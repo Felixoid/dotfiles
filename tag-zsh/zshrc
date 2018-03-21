@@ -15,6 +15,9 @@ else
   unsetopt EXTENDED_GLOB
 fi
 
+# I don't want to see error `zsh: no matches found: remote.host:file.*`
+unsetopt NOMATCH
+
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
