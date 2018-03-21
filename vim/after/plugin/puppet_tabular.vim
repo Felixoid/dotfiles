@@ -69,9 +69,9 @@ if exists(':AddTabularPipeline')
     endfunction
 
     " The class definition could be interrupted with enum's multiline, selectors
-    " or whatever else, so tabular will search for any of `[$['",#]|class` symbols and
+    " or whatever else, so tabular will search for any of `[$['",#]|^\s*class` symbols and
     " pass them into AlignPuppetClass function. First line have to contain
     " `class`
-    au FileType puppet AddTabularPipeline! puppet_class /[$['",#]\|class/ AlignPuppetClass(a:lines)
+    au FileType puppet AddTabularPipeline! puppet_class /[$['",#]\|^\s*class/ AlignPuppetClass(a:lines)
     au FileType puppet inoremap <buffer> <silent> <CR> <Esc>:Tabularize puppet_class<CR>o
 endif
