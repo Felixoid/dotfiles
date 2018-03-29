@@ -2,7 +2,7 @@ call plug#begin()
 Plug 'vim-scripts/Arduino-syntax-file'
 Plug 'vim-scripts/Conque-GDB'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py' }
 Plug 'Raimondi/delimitMate'
 Plug 'nanotech/jellybeans.vim'
 Plug 'coddingtonbear/neomake-platformio'
