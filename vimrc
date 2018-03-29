@@ -43,11 +43,8 @@ set clipboard-=autoselect
 " NERDTree
 let g:NERDTreeWinSize=22
 let g:nerdtree_tabs_open_on_console_startup = 1
-if @% == ""
-  au VimEnter * NERDTreeTabsOpen
-  au VimEnter * NERDTreeFocusToggle
-endif
-
+let g:nerdtree_tabs_smart_startup_focus = 2
+let g:nerdtree_tabs_focus_on_files = 1
 
 " function to change file encoding
 function! ChangeFileencoding()
