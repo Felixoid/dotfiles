@@ -37,7 +37,7 @@ genpasswd() {
 }
 
 # work rcs
-if [ -r "$HOME/.workrc" ]
+if [ -r "$HOME/.workrc" ] && [ -n "$(ls "$HOME/.workrc/")" ]
 then for rc in "$HOME/.workrc/"*
     do [ -r "$rc" ] && . "$rc"
     done
