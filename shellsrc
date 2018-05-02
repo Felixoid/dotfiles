@@ -12,19 +12,21 @@ export VISUAL=vim
 
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+  if [ -r ~/.dircolors ]
+    then eval "$(/usr/bin/dircolors -b ~/.dircolors)"
+    else eval "$(/usr/bin/dircolors -b)"
+  fi
+  alias ls='ls --color=auto'
 
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
+  alias grep='grep --color=auto'
+  alias fgrep='fgrep --color=auto'
+  alias egrep='egrep --color=auto'
 fi
 
 # keychain, only if SSH_* undefined
 [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 "$HOME"/.ssh/*_rsa -q
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]
-then
-  [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
+  then [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
 fi
 
 # password generator
@@ -35,8 +37,8 @@ genpasswd() {
 }
 
 # work rcs
-if [ -r "$HOME/.yandexrc" ]
-then for rc in "$HOME/.yandexrc/"*
+if [ -r "$HOME/.workrc" ]
+then for rc in "$HOME/.workrc/"*
     do [ -r "$rc" ] && . "$rc"
     done
 fi
@@ -55,10 +57,10 @@ export CVS_RSH=ssh
 
 # docker build cont
 dobuild() {
-  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it debuild:"${REL:-jessie}" "$@"
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it debuild:"${REL:-jessie}" "$@"
 }
 dorun() {
-  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd --rm -it "$@"
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it "$@"
 }
 
 # less pipe
