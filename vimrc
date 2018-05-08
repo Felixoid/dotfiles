@@ -70,6 +70,10 @@ nmap  :set paste!<CR>
 set keymap=russian-jcukenwin
 set iminsert=0
 set imsearch=0
+set scrolloff=3
+set incsearch
+set tabpagemax=40
+set history=1000
 imap  
 highlight lCursor guifg=Red guibg=Cyan ctermfg=Red ctermbg=Cyan
 highlight Folded ctermbg=black
