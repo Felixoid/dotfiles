@@ -25,8 +25,8 @@ fi
 
 # keychain, only if SSH_* undefined
 [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 "$HOME"/.ssh/*_rsa -q
-if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]
-  then [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
+if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
+  [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
 fi
 
 # password generator
@@ -37,10 +37,10 @@ genpasswd() {
 }
 
 # work rcs
-if [ -r "$HOME/.workrc" ] && [ -n "$(ls "$HOME/.workrc/")" ]
-then for rc in "$HOME/.workrc/"*
-    do [ -r "$rc" ] && . "$rc"
-    done
+if [ -r "$HOME/.workrc/" ] && [ -n "$(ls "$HOME/.workrc/")" ]; then
+  for src in "$HOME/.workrc/"*.sh; do
+    [ -r "$src" ] && . "$src"
+  done
 fi
 
 alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'

@@ -39,3 +39,9 @@ case ${TERM} in
 esac
 
 [ -f ${HOME}/.shellsrc ] && . ${HOME}/.shellsrc
+# work rcs
+if [ -r "$HOME/.workrc/" ] && [ -n "$(ls "$HOME/.workrc/")" ]; then
+  for src in "$HOME/.workrc/"*.zsh(N); do
+    [ -r "$src" ] && . "$src"
+  done
+fi
