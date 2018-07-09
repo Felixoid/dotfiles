@@ -13,6 +13,7 @@ set list
 set listchars=tab:\|—,trail:~
 set cursorline
 set hlsearch
+nnoremap  :nohlsearch <CR>
 filetype plugin on
 syntax on
 set number
