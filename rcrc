@@ -1,2 +1,2 @@
-SYMLINK_DIRS="vim config/terminator ctags.d"
+SYMLINK_DIRS="vim config/terminator ctags.d workrc"
 TAGS="zsh dmz"
