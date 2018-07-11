@@ -1,5 +1,6 @@
 call plug#begin()
 Plug 'vim-scripts/Arduino-syntax-file'
+Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'vim-scripts/Conque-GDB'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py' }
