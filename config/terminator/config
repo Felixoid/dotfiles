@@ -1,4 +1,5 @@
 [global_config]
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
   inactive_color_offset = 0.75
   title_font = Monaco for Powerline 13
@@ -22,11 +23,98 @@
 [plugins]
 [profiles]
   [[default]]
+    background_color = "#212121"
+    cursor_color = "#d0d0d0"
+    foreground_color = "#d0d0d0"
+    palette = "#151515:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#d0d0d0:#505050:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#f5f5f5"
+    scrollback_lines = 50000
+    word_chars = "-,./?%&#:_=@+~"
+  [[Afterglow]]
+    background_color = "#212121"
+    cursor_color = "#d0d0d0"
+    foreground_color = "#d0d0d0"
+    palette = "#151515:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#d0d0d0:#505050:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#f5f5f5"
+  [[Borland]]
+    background_color = "#0000a4"
+    cursor_color = "#ffa560"
+    foreground_color = "#ffff4e"
+    palette = "#4f4f4f:#ff6c60:#a8ff60:#ffffb6:#96cbfe:#ff73fd:#c6c5fe:#eeeeee:#7c7c7c:#ffb6b0:#ceffac:#ffffcc:#b5dcff:#ff9cfe:#dfdffe:#ffffff"
+  [[Bright Lights]]
+    background_color = "#191919"
+    cursor_color = "#f34b00"
+    foreground_color = "#b3c9d7"
+    palette = "#191919:#ff355b:#b7e876:#ffc251:#76d4ff:#ba76e7:#6cbfb5:#c2c8d7:#191919:#ff355b:#b7e876:#ffc251:#76d5ff:#ba76e7:#6cbfb5:#c2c8d7"
+  [[Dark Pastel]]
+    cursor_color = "#bbbbbb"
+    foreground_color = "#ffffff"
+    palette = "#000000:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#bbbbbb:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+  [[DimmedMonokai]]
+    background_color = "#1f1f1f"
+    cursor_color = "#f83e19"
+    foreground_color = "#b9bcba"
+    palette = "#3a3d43:#be3f48:#879a3b:#c5a635:#4f76a1:#855c8d:#578fa4:#b9bcba:#888987:#fb001f:#0f722f:#c47033:#186de3:#fb0067:#2e706d:#fdffb9"
+  [[Jellybeans]]
+    background_color = "#121212"
+    cursor_color = "#ffa560"
+    foreground_color = "#dedede"
+    palette = "#929292:#e27373:#94b979:#ffba7b:#97bedc:#e1c0fa:#00988e:#dedede:#bdbdbd:#ffa1a1:#bddeab:#ffdca0:#b1d8f6:#fbdaff:#1ab2a8:#ffffff"
+  [[JetBrains Darcula]]
+    background_color = "#202020"
+    cursor_color = "#ffffff"
+    foreground_color = "#adadad"
+    palette = "#000000:#fa5355:#126e00:#c2c300:#4581eb:#fa54ff:#33c2c1:#adadad:#555555:#fb7172:#67ff4f:#ffff00:#6d9df1:#fb82ff:#60d3d1:#eeeeee"
+  [[Later This Evening]]
+    background_color = "#222222"
+    cursor_color = "#424242"
+    foreground_color = "#959595"
+    palette = "#2b2b2b:#d45a60:#afba67:#e5d289:#a0bad6:#c092d6:#91bfb7:#3c3d3d:#454747:#d3232f:#aabb39:#e5be39:#6699d6:#ab53d6:#5fc0ae:#c1c2c2"
+  [[LiquidCarbonTransparent]]
+    cursor_color = "#ffffff"
+    foreground_color = "#afc2c2"
+    palette = "#000000:#ff3030:#559a70:#ccac00:#0099cc:#cc69c8:#7ac4cc:#bccccc:#000000:#ff3030:#559a70:#ccac00:#0099cc:#cc69c8:#7ac4cc:#bccccc"
+  [[MaterialDark]]
+    background_color = "#232322"
+    cursor_color = "#16afca"
+    foreground_color = "#e5e5e5"
+    palette = "#212121:#b7141f:#457b24:#f6981e:#134eb2:#560088:#0e717c:#efefef:#424242:#e83b3f:#7aba3a:#ffea2e:#54a4f3:#aa4dbc:#26bbd1:#d9d9d9"
+  [[Monokai dark]]
+    background_color = "#272822"
+    cursor_color = "#ffffff"
+    foreground_color = "#f8f8f2"
+    palette = "#75715e:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5:#272822:#f92672:#a6e22e:#f4bf75:#66d9ef:#ae81ff:#2aa198:#f9f8f5"
+  [[Neutron]]
+    background_color = "#1c1e22"
+    cursor_color = "#f6f7ec"
+    foreground_color = "#e6e8ef"
+    palette = "#23252b:#b54036:#5ab977:#deb566:#6a7c93:#a4799d:#3f94a8:#e6e8ef:#23252b:#b54036:#5ab977:#deb566:#6a7c93:#a4799d:#3f94a8:#ebedf2"
+  [[OldDefault]]
     background_color = "#181818"
     cursor_color = "#aaaaaa"
-    font = Monaco for Powerline 12
     foreground_color = "#d3d7cf"
     palette = "#282a2d:#a54242:#6e9440:#de935f:#5f819d:#85678f:#5e8d87:#b0b0b0:#373b41:#cc6666:#b5bd68:#f0c674:#7291ac:#b294bb:#8abeb7:#cccccc"
     scrollback_lines = 50000
-    use_system_font = False
     word_chars = "-,./?%&#:_=@+~"
+  [[OneHalfDark]]
+    background_color = "#282c34"
+    cursor_color = "#a3b3cc"
+    foreground_color = "#dcdfe4"
+    palette = "#282c34:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#dcdfe4:#282c34:#e06c75:#98c379:#e5c07b:#61afef:#c678dd:#56b6c2:#dcdfe4"
+  [[Peppermint]]
+    cursor_color = "#BBBBBB"
+    foreground_color = "#c7c7c7"
+    palette = "#353535:#E64569:#89D287:#DAB752:#439ECF:#D961DC:#64AAAF:#B3B3B3:#535353:#E4859A:#A2CCA1:#E1E387:#6FBBE2:#E586E7:#96DCDA:#DEDEDE"
+  [[Pnevma]]
+    background_color = "#1c1c1c"
+    cursor_color = "#e4c9af"
+    foreground_color = "#d0d0d0"
+    palette = "#2f2e2d:#a36666:#90a57d:#d7af87:#7fa5bd:#c79ec4:#8adbb4:#d0d0d0:#4a4845:#d78787:#afbea2:#e4c9af:#a1bdce:#d7beda:#b1e7dd:#efefef"
+  [[Solarized Dark - Patched]]
+    background_color = "#001e27"
+    cursor_color = "#708284"
+    foreground_color = "#708284"
+    palette = "#002831:#d11c24:#738a05:#a57706:#2176c7:#c61c6f:#259286:#eae3cb:#475b62:#bd3613:#475b62:#536870:#708284:#5956ba:#819090:#fcf4dc"
+  [[deep]]
+    background_color = "#090909"
+    cursor_color = "#d0d0d0"
+    foreground_color = "#cdcdcd"
+    palette = "#000000:#d70005:#1cd915:#d9bd26:#5665ff:#b052da:#50d2da:#e0e0e0:#535353:#fb0007:#22ff18:#fedc2b:#9fa9ff:#e09aff:#8df9ff:#ffffff"
