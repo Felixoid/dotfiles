@@ -13,12 +13,17 @@ set list
 set listchars=tab:\|—,trail:~
 set cursorline
 set hlsearch
+" <c-/> for switch highlight
 nnoremap  :nohlsearch <CR>
 filetype plugin on
 syntax on
 set number
 set relativenumber
 set linebreak
+highlight lCursor guifg=Red guibg=Cyan ctermfg=Red ctermbg=Cyan
+highlight Folded ctermbg=black
+highlight Normal ctermbg=none
+highlight NonText ctermbg=none
 
 " tabulation
 set autoindent
@@ -76,8 +81,6 @@ set incsearch
 set tabpagemax=40
 set history=1000
 imap  
-highlight lCursor guifg=Red guibg=Cyan ctermfg=Red ctermbg=Cyan
-highlight Folded ctermbg=black
 "setlocal spell spelllang=ru_yo,en_us
 set nospell
 
