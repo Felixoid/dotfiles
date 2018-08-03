@@ -1,5 +1,3 @@
-# The following lines were added by compinstall
-
 zstyle :compinstall filename "${HOME}/.zshrc"
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' max-errors 1
@@ -8,11 +6,11 @@ zstyle ':completion:*' menu select
 # I don't want to see error `zsh: no matches found: remote.host:file.*` on `rsync` invoking
 unsetopt NOMATCH
 
+# allow comments in interactive
+setopt interactivecomments
+
 autoload -Uz compinit
 compinit
-# End of lines added by compinstall
-# Lines configured by zsh-newuser-install
-# End of lines configured by zsh-newuser-install
 
 bindkey -v
 bindkey -M viins '\e.' insert-last-word
@@ -27,6 +25,9 @@ case ${TERM} in
     precmd () {print -Pn "\e]0;%5~\a"}
     ;;
 esac
+
+# autocompletion
+_SERVERADMIN_HOSTS_ZSTYLE=true
 
 [ -f ${HOME}/.shellsrc ] && . ${HOME}/.shellsrc
 # work rcs
