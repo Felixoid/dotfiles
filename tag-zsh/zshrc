@@ -28,6 +28,9 @@ case ${TERM} in
     ;;
 esac
 
+# Include bash profile by default
+emulate sh -c 'source /etc/profile'
+
 # autocompletion
 _SERVERADMIN_HOSTS_ZSTYLE=true
 
