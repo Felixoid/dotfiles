@@ -37,8 +37,9 @@ genpasswd() {
 }
 
 # work rcs
-if [ -r "$HOME/.workrc/" ] && [ -n "$(ls "$HOME/.workrc/")" ]; then
-  for src in "$HOME/.workrc/"*.sh; do
+if [ -r "$HOME/.config/workrc/" ] \
+    && [ -n "$(ls "$HOME/.config/workrc/"*.sh)" ]; then
+  for src in "$HOME/.config/workrc/"*.sh; do
     [ -r "$src" ] && . "$src"
   done
 fi
@@ -52,9 +53,6 @@ export GPG_TTY
 #english git
 alias git="LC_ALL=en_US.UTF-8 git"
 
-#cvs over ssh
-export CVS_RSH=ssh
-
 # docker build cont
 dobuild() {
   docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it debuild:"${REL:-jessie}" "$@"
@@ -66,6 +64,3 @@ dorun() {
 # less pipe
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
 export LESS_ADVANCED_PREPROCESSOR=1
-
-# dns-monkey alias
-alias dns-client=dns-monkey.pl

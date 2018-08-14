@@ -9,7 +9,7 @@ HISTCONTROL=ignoredups:ignorespace
 # append to the history file, don't overwrite it
 shopt -s histappend
 
-[ -f $HOME/.shellsrc ] && . $HOME/.shellsrc
+[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
 
 # for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
 HISTSIZE=10000000

@@ -17,7 +17,9 @@ bindkey -M viins '\e.' insert-last-word
 bindkey "^W" backward-kill-word
 bindkey '^K' unlock-rsa
 bindkey "^[[A" history-beginning-search-backward
+bindkey "^[OA" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
+bindkey "^[OB" history-beginning-search-forward
 
 #experiment
 case ${TERM} in
@@ -29,10 +31,11 @@ esac
 # autocompletion
 _SERVERADMIN_HOSTS_ZSTYLE=true
 
-[ -f ${HOME}/.shellsrc ] && . ${HOME}/.shellsrc
+[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
 # work rcs
-if [ -r "$HOME/.workrc/" ] && [ -n "$(ls "$HOME/.workrc/")" ]; then
-  for src in "$HOME/.workrc/"*.zsh(N); do
+if [ -r "$HOME/.config/workrc/" ] \
+    && [ -n "$(ls "$HOME/.config/workrc/")" ]; then
+  for src in "$HOME/.config/workrc/"*.zsh(N); do
     [ -r "$src" ] && . "$src"
   done
 fi

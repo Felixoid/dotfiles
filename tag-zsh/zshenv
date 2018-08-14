@@ -9,7 +9,7 @@ SAVEHIST=100000
 export KEYTIMEOUT=1
 
 # SSH ask pass with GUI
-export SSH_ASKPASS=/usr/lib/ssh/x11-ssh-askpass
+export SSH_ASKPASS=/usr/bin/qt4-ssh-askpass
 
 #Prompts
 function prompt_char {
