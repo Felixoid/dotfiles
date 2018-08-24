@@ -8,9 +8,6 @@ SAVEHIST=100000
 # Vim modes lag
 export KEYTIMEOUT=1
 
-# SSH ask pass with GUI
-export SSH_ASKPASS=/usr/bin/qt4-ssh-askpass
-
 #Prompts
 function prompt_char {
     git branch >/dev/null 2>&1 && echo '±' && return

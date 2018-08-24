@@ -23,6 +23,16 @@ if [ -x /usr/bin/dircolors ]; then
   alias egrep='egrep --color=auto'
 fi
 
+# SSH ask pass with GUI
+for ASKPASS in /usr/bin/lxqt-openssh-askpass \
+    /usr/bin/qt4-ssh-askpass \
+    /usr/lib/ssh/x11-ssh-askpass; do
+  if [ -x $ASKPASS ]; then
+    export SSH_ASKPASS=$ASKPASS
+    break
+  fi
+done
+
 # keychain, only if SSH_* undefined
 [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 "$HOME"/.ssh/*_rsa -q
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
@@ -60,6 +70,9 @@ dobuild() {
 dorun() {
   docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it "$@"
 }
+
+# qt5 scaling problem with i.e. zeal
+export QT_AUTO_SCREEN_SCALE_FACTOR=0
 
 # less pipe
 export LESSOPEN="|/usr/bin/lesspipe.sh %s"
