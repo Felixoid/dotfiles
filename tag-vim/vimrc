@@ -70,8 +70,8 @@ nmap <F8> :call ChangeFileencoding()<CR>
 
 " toggles maps
 nmap <F7> :set number! relativenumber!<CR>
-nmap  :set expandtab!<CR>
-nmap  :set paste!<CR>
+nmap <leader>T :set expandtab!<CR>
+nmap <leader>P :set paste!<CR>
 
 set keymap=russian-jcukenwin
 set iminsert=0
@@ -108,15 +108,22 @@ au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>gt <Plug>(go-doc-tab)
 
+" vim-gutentags
+set tags+=tags;/
+set statusline+=%{gutentags#statusline()}
+let g:gutentags_add_default_project_roots = 0
+let g:gutentags_project_root = ['tags']
+
+" CtrlP
+noremap      :CtrlPTag<cr>
+nnoremap <c-]> :CtrlPtjump<cr>
+
 " puppet
 " see ~/.vim/after/plugin/puppet-tabular.vim
 au FileType puppet set expandtab
 au FileType puppet set ts=4
 au FileType puppet set sw=4
 au FileType puppet set sts=4
-au FileType puppet nnoremap <c-]> :exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
-au FileType puppet nnoremap <c-w><c-]> :tab split<CR>:exe "tag " . substitute(expand("<cword>"), "^::", "", "")<CR>
-au FileType puppet nnoremap <leader><c-]> :tab split<CR>:exe "tselect /" . substitute(expand("<cword>"), "^::", "", "")<CR>
 
 " syntastic
 let g:syntastic_check_on_open = 1
@@ -125,8 +132,8 @@ let g:syntastic_check_on_open = 1
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
 
-" vim-gutentags
-set tags+=tags;/
-set statusline+=%{gutentags#statusline()}
-let g:gutentags_add_default_project_roots = 0
-let g:gutentags_project_root = ['tags']
+" vimtex for LaTeX
+if !exists('g:ycm_semantic_triggers')
+  let g:ycm_semantic_triggers = {}
+endif
+let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
