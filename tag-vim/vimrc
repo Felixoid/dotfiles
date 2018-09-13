@@ -8,7 +8,11 @@ if has('gui_running')
 endif
 
 " theming
-colorscheme jellybeans
+try
+  colorscheme jellybeans
+catch /Cannot find color scheme/
+  silent echo ''
+endtry
 set list
 set listchars=tab:\|—,trail:~
 set cursorline
@@ -110,9 +114,11 @@ au FileType go nmap <Leader>gt <Plug>(go-doc-tab)
 
 " vim-gutentags
 set tags+=tags;/
-set statusline+=%{gutentags#statusline()}
 let g:gutentags_add_default_project_roots = 0
 let g:gutentags_project_root = ['tags']
+if exists('*gutentags#statusline')
+  set statusline+=%{gutentags#statusline()}
+endif
 
 " CtrlP
 noremap      :CtrlPTag<cr>
@@ -133,7 +139,9 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
 
 " vimtex for LaTeX
-if !exists('g:ycm_semantic_triggers')
-  let g:ycm_semantic_triggers = {}
+if exists('g:vimtex#re#youcompleteme')
+  if !exists('g:ycm_semantic_triggers')
+    let g:ycm_semantic_triggers = {}
+  endif
+  let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
 endif
-let g:ycm_semantic_triggers.tex = g:vimtex#re#youcompleteme
