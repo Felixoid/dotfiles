@@ -35,7 +35,8 @@ Plug 'jamessan/vim-gnupg'
 Plug 'fatih/vim-go', { 'for': 'go' }
 if s:job_api | Plug 'ludovicchabant/vim-gutentags' | endif
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'Felixoid/vim-puppet'
+Plug 'rodjek/vim-puppet'
+Plug 'Felixoid/vim-puppet-class-alignment'
 Plug 'vim-ruby/vim-ruby'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
