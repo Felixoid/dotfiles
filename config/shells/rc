@@ -24,9 +24,11 @@ if [ -x /usr/bin/dircolors ]; then
 fi
 
 # SSH ask pass with GUI
-for ASKPASS in /usr/bin/lxqt-openssh-askpass \
+for ASKPASS in /usr/lib/seahorse/ssh-askpass \
+    /usr/bin/lxqt-openssh-askpass \
     /usr/bin/qt4-ssh-askpass \
-    /usr/lib/ssh/x11-ssh-askpass; do
+    /usr/lib/ssh/x11-ssh-askpass
+do
   if [ -x $ASKPASS ]; then
     export SSH_ASKPASS=$ASKPASS
     break
