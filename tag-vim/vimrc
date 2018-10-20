@@ -137,6 +137,10 @@ let g:syntastic_check_on_open = 1
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
+let g:ycm_key_list_select_completion = []
+let g:ycm_key_list_previous_completion = []
+
+" UtilSnippet
 
 " vimtex for LaTeX
 if exists('g:vimtex#re#youcompleteme')
