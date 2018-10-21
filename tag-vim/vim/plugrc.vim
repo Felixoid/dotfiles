@@ -5,7 +5,6 @@ let s:py3 = has('python3')
 " This condition is goten from vim-gutentags:17
 let s:job_api = has('job') || (has('nvim') && exists('*jobwait'))
 
-
 " to suppress an error on hosts w/o `git`
 silent! call plug#begin()
 Plug 'vim-scripts/Arduino-syntax-file'
@@ -36,6 +35,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jamessan/vim-gnupg'
 Plug 'fatih/vim-go', { 'for': 'go' }
 if s:job_api | Plug 'ludovicchabant/vim-gutentags' | endif
+Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'rodjek/vim-puppet'
 Plug 'Felixoid/vim-puppet-class-alignment'
@@ -45,3 +45,8 @@ Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 Plug 'mattn/webapi-vim'
 call plug#end()
+
+" Load vim-mucomplete if there's no YCM
+if !isdirectory(g:plug_home . '/YouCompleteMe')
+  MUcompleteAutoOn
+end
