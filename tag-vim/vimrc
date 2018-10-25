@@ -133,6 +133,10 @@ au FileType puppet set sts=4
 " syntastic
 let g:syntastic_check_on_open = 1
 
+" ALE
+let g:ale_lint_on_insert_leave = 1
+let g:ale_lint_on_text_changed = 0
+
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
