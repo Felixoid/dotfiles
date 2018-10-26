@@ -148,6 +148,8 @@ let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 
 " UtilSnippet
+" I would like to ignore ultisnips launch worning
+let g:UltiSnipsNoPythonWarning = 1
 
 " vimtex for LaTeX
 if exists('g:vimtex#re#youcompleteme')
