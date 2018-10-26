@@ -92,7 +92,11 @@ set nospell
 let g:pymode_rope = 0 " using YouCompleteMe instead of rope
 let g:pymode_lint_ignore="E501" " ignore 'too long lines'
 let g:pymode_lint = 1
-let g:pymode_python = 'python3'
+if has('python3') && executable('python3')
+  let g:pymode_python = 'python3'
+elseif has('python') && executable('python')
+  let g:pymode_python = 'python'
+endif
 au FileType python setlocal wrap
 
 " vim-go
