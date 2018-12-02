@@ -26,7 +26,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'coddingtonbear/neomake-platformio'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
-Plug 'python-mode/python-mode', { 'branch': 'master' }
+Plug 'python-mode/python-mode', { 'branch': 'develop' }
 Plug 'luochen1990/rainbow'
 Plug 'saltstack/salt-vim'
 Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticReset' }
@@ -55,7 +55,13 @@ call plug#end()
 
 " Load vim-mucomplete if there's no YCM
 if !isdirectory(g:plug_home . '/YouCompleteMe')
-  MUcompleteAutoOn
+  au VimEnter * silent! MUcompleteAutoOn
+  set completeopt+=menuone,menu
+  if has('patch-7.4.775')
+    set completeopt+=noinsert
+  else
+    set completeopt-=longest
+  end
 end
 
 " Load syntastic if couldn't load ale
