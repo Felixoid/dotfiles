@@ -13,7 +13,6 @@ let s:ale_reqs = ( has('timers') && has('nvim-0.2.0') ) ||
 
 " to suppress an error on hosts w/o `git`
 silent! call plug#begin()
-Plug 'vim-scripts/Arduino-syntax-file'
 Plug 'vim-scripts/Conque-GDB'
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'Glench/Vim-Jinja2-Syntax'
@@ -23,7 +22,6 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'nanotech/jellybeans.vim'
-Plug 'coddingtonbear/neomake-platformio'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
@@ -50,7 +48,6 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
-Plug 'mattn/webapi-vim'
 call plug#end()
 
 " Load vim-mucomplete if there's no YCM
