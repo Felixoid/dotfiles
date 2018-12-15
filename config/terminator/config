@@ -11,6 +11,8 @@
   broadcast_off = <Primary><Alt>o
   help = <Alt>F1
   hide_window = None
+  page_down_half = <Shift>Down
+  page_up_half = <Shift>Up
 [layouts]
   [[default]]
     [[[child1]]]
