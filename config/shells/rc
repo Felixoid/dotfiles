@@ -1,6 +1,15 @@
 #!/bin/bash
 # PATH
 [[ $PATH == *"$HOME/bin"* ]] || export PATH=$PATH:$HOME/bin
+# ruby
+if [ -d "$HOME/.gem/ruby" ] && [ -n "$(ls "$HOME/.gem/ruby/"*"/bin")" ]; then
+  for dir in "$HOME/.gem/ruby/"*"/bin"; do
+    export PATH=$PATH:"$dir"
+  done
+fi
+
+# added by travis gem
+[ -f /home/felixoid/.travis/travis.sh ] && source /home/felixoid/.travis/travis.sh
 
 # GO
 export GOPATH=$HOME/OPT/go
