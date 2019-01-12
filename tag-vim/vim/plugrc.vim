@@ -22,6 +22,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'davidhalter/jedi-vim'
 Plug 'nanotech/jellybeans.vim'
+Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
 Plug 'python-mode/python-mode', { 'branch': 'develop' }
@@ -40,6 +41,7 @@ Plug 'tpope/vim-fugitive'
 Plug 'jamessan/vim-gnupg'
 Plug 'fatih/vim-go', { 'for': 'go' }
 if s:guttentags_reqs | Plug 'ludovicchabant/vim-gutentags' | endif
+Plug 'andymass/vim-matchup'
 Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'rodjek/vim-puppet'
