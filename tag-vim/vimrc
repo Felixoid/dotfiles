@@ -67,30 +67,6 @@ if has('patch-8.1.0360')
   set diffopt+=algorithm:patience,indent-heuristic
 end
 
-" YaML
-autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
-
-" Airline
-let g:airline_theme='base16_ashes'
-set laststatus=2
-let g:airline#extensions#vimagit#enabled=1
-let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#keymap#enabled=0
-" more compact position section
-let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
-
-" Rainbow
-let g:rainbow_active = 1
-let g:rainbow_operators = 1
-set clipboard-=autoselect
-
-" NERDTree
-let g:NERDTreeWinSize=22
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:nerdtree_tabs_smart_startup_focus = 2
-let g:nerdtree_tabs_focus_on_files = 1
-autocmd FileType gitrebase let g:nerdtree_tabs_open_on_console_startup = 0
-
 " function to change file encoding
 function! ChangeFileencoding()
   let encodings = ['cp1251', 'koi8-r', 'cp866', 'utf8']
@@ -122,6 +98,33 @@ set history=1000
 imap  
 "setlocal spell spelllang=ru_yo,en_us
 set nospell
+
+" YaML
+autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+
+" Airline
+let g:airline_theme='base16_ashes'
+set laststatus=2
+let g:airline#extensions#vimagit#enabled=1
+let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#keymap#enabled=0
+" more compact position section
+let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
+
+" Auto-pair
+let g:AutoPairsShortcutJump='<S-Tab>'
+
+" Rainbow
+let g:rainbow_active = 1
+let g:rainbow_operators = 1
+set clipboard-=autoselect
+
+" NERDTree
+let g:NERDTreeWinSize=22
+let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_smart_startup_focus = 2
+let g:nerdtree_tabs_focus_on_files = 1
+autocmd FileType gitrebase let g:nerdtree_tabs_open_on_console_startup = 0
 
 " pymode
 let g:pymode_rope = 0 " using YouCompleteMe instead of rope
