@@ -85,8 +85,8 @@ nmap <F8> :call ChangeFileencoding()<CR>
 
 " toggles maps
 nmap <F7> :set number! relativenumber!<CR>
-nmap <leader>T :set expandtab!<CR>
-nmap <leader>P :set paste!<CR>
+nmap <leader>tT :set expandtab!<CR>
+nmap <leader>tP :set paste!<CR>
 
 set keymap=russian-jcukenwin
 set iminsert=0
@@ -96,6 +96,13 @@ set incsearch
 set tabpagemax=40
 set history=1000
 imap  
+
+" Copy and paste to and from xclip
+nmap <leader>y "*y
+nmap <leader>p "*p
+nmap <leader>Y "*Y
+nmap <leader>P "*P
+
 "setlocal spell spelllang=ru_yo,en_us
 set nospell
 
@@ -135,6 +142,9 @@ elseif has('python') && executable('python')
   let g:pymode_python = 'python'
 endif
 au FileType python setlocal wrap
+
+" jedi-vim
+let g:jedi#use_tabs_not_buffers = 1 " open every goto in tabs
 
 " vim-go
 au FileType go set noexpandtab
