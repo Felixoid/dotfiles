@@ -193,6 +193,8 @@ let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
+let g:ycm_goto_buffer_command = 'new-tab'
+nnoremap <leader>gt :YcmCompleter GoTo<CR>
 
 " UtilSnippet
 " I would like to ignore ultisnips launch worning
