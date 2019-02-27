@@ -98,4 +98,3 @@ if [ -r "$HOME/.config/workrc/" ] \
     [ -r "$src" ] && . "$src"
   done
 fi
-zprof
