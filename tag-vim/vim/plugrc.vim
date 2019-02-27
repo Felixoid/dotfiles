@@ -17,7 +17,7 @@ Plug 'vim-scripts/Conque-GDB'
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'tmhedberg/SimpylFold'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py --clang-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py' }
 if s:ale_reqs | Plug 'w0rp/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
