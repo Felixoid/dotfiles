@@ -2,6 +2,9 @@
 ""   {j"qyi`@q}
 " after an adding of new string do `:/\splug#begin/+1,/plug#end/-1 sort /\//`
 let s:py3 = has('python3')
+let s:py2 = has('python')
+let s:py  = s:py2 || s:py3
+
 
 " This condition is goten from vim-gutentags:17
 let s:guttentags_reqs = has('job') || (has('nvim') && exists('*jobwait'))
@@ -21,12 +24,12 @@ Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive;
 if s:ale_reqs | Plug 'w0rp/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
-Plug 'davidhalter/jedi-vim'
+if s:py | Plug 'davidhalter/jedi-vim' | endif
 Plug 'nanotech/jellybeans.vim'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
-Plug 'python-mode/python-mode', { 'branch': 'develop' }
+if s:py | Plug 'python-mode/python-mode', { 'branch': 'develop' } | endif
 Plug 'luochen1990/rainbow'
 Plug 'saltstack/salt-vim'
 Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticReset' }
