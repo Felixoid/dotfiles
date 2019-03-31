@@ -109,6 +109,9 @@ set nospell
 " YaML
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
+" Groovy
+autocmd FileType groovy setlocal ts=4 sts=4 sw=4 expandtab
+
 " Airline
 let g:airline_theme='base16_ashes'
 set laststatus=2
