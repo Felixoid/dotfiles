@@ -24,6 +24,7 @@ function prompt_char {
 if [ -r ~/.config/zsh/git-prompt.zsh ]; then
   source ~/.config/zsh/git-prompt.zsh
   _GIT_PROMPT_ENABLED=true
+  ZSH_GIT_PROMPT_SHOW_STASH=true
 fi
 
 function zle-line-init zle-keymap-select {
