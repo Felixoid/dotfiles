@@ -47,7 +47,7 @@ done
 # keychain, only if SSH_* undefined
 [ -x /usr/bin/keychain ] && /usr/bin/keychain --timeout 59 "$HOME"/.ssh/*_rsa -q
 if [ -z "$SSH_AUTH_SOCK" ] || [ ! -S "$SSH_AUTH_SOCK" ]; then
-  [ -f "$HOME/.keychain/$(hostname -s)-sh" ] && . "$HOME/.keychain/$(hostname -s)-sh"
+  [ -f "$HOME/.keychain/${HOST}-sh" ] && . "$HOME/.keychain/${HOST}-sh"
 fi
 
 # password generator

@@ -30,7 +30,7 @@ fi
 function zle-line-init zle-keymap-select {
     # I want to avoid black color, that's why '% 7 + 1'
     local USER_FG=$(( $( printf $USER | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
-    local HOST_FG=$(( $( hostname | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
+    local HOST_FG=$(( $( echo $HOST | cksum | cut -d\  -f1 ) / 13 % 7 + 1))
     local ROOT_PROMPT="%F{red}%B%n@%m%b%f"
     local USER_PROMPT="%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f"
     [ "${SSH_CLIENT}" ] && local SSH_PROMPT="%F{yellow}[ssh from ${SSH_CLIENT%% *}]%f "
