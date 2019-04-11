@@ -51,8 +51,13 @@ zle -N zle-keymap-select
 
 #################### Prompting end ####################
 
-# unlock ssh rsa keys
-unlock-rsa() {/usr/bin/keychain --timeout 59 "${HOME}"/.ssh/*_rsa -q}
+# Global cross-shells
+[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
+
+# Include bash profile by default
+emulate sh -c 'source /etc/profile'
+
+# Unlock ssh rsa keys, defined in ${HOME}/.config/shells/rc
 zle -N unlock-rsa
 
 # Switcher for git prompt cache
@@ -78,20 +83,16 @@ bindkey "^[OA" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
 bindkey "^[OB" history-beginning-search-forward
 
-#experiment
+# Terminal title
 case ${TERM} in
   xterm*)
     precmd () {print -Pn "\e]0;%5~\a"}
     ;;
 esac
 
-# Include bash profile by default
-emulate sh -c 'source /etc/profile'
-
 # autocompletion
 _SERVERADMIN_HOSTS_ZSTYLE=true
 
-[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
 # work rcs
 if [ -r "$HOME/.config/workrc/" ] \
     && [ -n "$(ls "$HOME/.config/workrc/")" ]; then
