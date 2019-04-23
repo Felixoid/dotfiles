@@ -70,7 +70,7 @@ alias git="LC_ALL=en_US.UTF-8 git"
 
 # docker build cont
 dobuild() {
-  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it debuild:"${REL:-jessie}" "$@"
+  docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it debuild:"${REL:-stretch}" "$@"
 }
 dorun() {
   docker run -w "$(pwd)" --network=host -e GPG_TTY="$GPG_TTY" -e SSH_AUTH_SOCK="$SSH_AUTH_SOCK" -v "$SSH_AUTH_SOCK":"$SSH_AUTH_SOCK" -e HOME:"$HOME" -v /home:/home -u "$UID":"$GID" -v /etc/passwd:/etc/passwd -v "$(pwd):$(pwd)" --rm -it "$@"
