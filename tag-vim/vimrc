@@ -4,7 +4,7 @@ source ~/.vim/plugrc.vim
 " GVIM
 if has('gui_running')
   lcd %:p:h
-  set guifont=Monaco\ for\ Powerline\ 11
+  set guifont=Consolas\ for\ Powerline\ Regular\ 14
 endif
 
 " theming
