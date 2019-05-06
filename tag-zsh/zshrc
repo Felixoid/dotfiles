@@ -29,8 +29,8 @@ fi
 
 function zle-line-init zle-keymap-select {
     # I want to avoid black color, that's why '% 7 + 1'
-    local USER_CKSUM=$(cksum <<< $USER)
-    local HOST_CKSUM=$(cksum <<< $HOST)
+    local USER_CKSUM="$(cksum <<< $USER)"
+    local HOST_CKSUM="$(cksum <<< $HOST)"
     local USER_FG=$(( ${USER_CKSUM/ */} / 13 % 7 + 1))
     local HOST_FG=$(( ${HOST_CKSUM/ */} / 13 % 7 + 1))
     local ROOT_PROMPT="%F{red}%B%n@%m%b%f"
