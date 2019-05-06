@@ -150,6 +150,7 @@ au FileType python setlocal wrap
 let g:jedi#use_tabs_not_buffers = 1 " open every goto in tabs
 
 " vim-go
+let g:go_metalinter_autosave = 1
 au FileType go set noexpandtab
 au FileType go set ts=4
 au FileType go set sw=4
