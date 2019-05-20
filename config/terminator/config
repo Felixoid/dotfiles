@@ -9,6 +9,7 @@
 [keybindings]
   broadcast_all = None
   broadcast_off = <Primary><Alt>o
+  cycle_next = None
   help = <Alt>F1
   hide_window = None
   page_down_half = <Shift>Down
