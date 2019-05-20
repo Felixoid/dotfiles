@@ -19,81 +19,47 @@
 # TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 # OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
+autoload -U colors && colors
+
+: "${ZSH_THEME_GIT_PROMPT_PREFIX="["}"
+: "${ZSH_THEME_GIT_PROMPT_SUFFIX="] "}"
+: "${ZSH_THEME_GIT_PROMPT_SEPARATOR="|"}"
+: "${ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"}"
+: "${ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"}"
+: "${ZSH_THEME_GIT_PROMPT_BEHIND="↓"}"
+: "${ZSH_THEME_GIT_PROMPT_AHEAD="↑"}"
+: "${ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}✖"}"
+: "${ZSH_THEME_GIT_PROMPT_STAGED="%{$fg[green]%}●"}"
+: "${ZSH_THEME_GIT_PROMPT_UNSTAGED="%{$fg[red]%}✚"}"
+: "${ZSH_THEME_GIT_PROMPT_UNTRACKED="…"}"
+: "${ZSH_THEME_GIT_PROMPT_STASHED="%{$fg[blue]%}⚑"}"
+: "${ZSH_THEME_GIT_PROMPT_CLEAN="%{$fg_bold[green]%}✔"}"
+
+# Disable promptinit if it is loaded
+(( $+functions[promptinit] )) && {promptinit; prompt off}
+
+# Allow parameter and command substitution in the prompt
 setopt PROMPT_SUBST
-autoload -U colors
-colors
 
-: "${ZSH_THEME_GIT_PROMPT_PREFIX:="["}"
-: "${ZSH_THEME_GIT_PROMPT_SUFFIX:="] "}"
-: "${ZSH_THEME_GIT_PROMPT_SEPARATOR:="|"}"
-: "${ZSH_THEME_GIT_PROMPT_DETACHED:="%{$fg_bold[cyan]%}:"}"
-: "${ZSH_THEME_GIT_PROMPT_BRANCH:="%{$fg_bold[magenta]%}"}"
-: "${ZSH_THEME_GIT_PROMPT_BEHIND:="↓"}"
-: "${ZSH_THEME_GIT_PROMPT_AHEAD:="↑"}"
-: "${ZSH_THEME_GIT_PROMPT_UNMERGED:="%{$fg[red]%}✖"}"
-: "${ZSH_THEME_GIT_PROMPT_STAGED:="%{$fg[green]%}●"}"
-: "${ZSH_THEME_GIT_PROMPT_UNSTAGED:="%{$fg[red]%}✚"}"
-: "${ZSH_THEME_GIT_PROMPT_UNTRACKED:="…"}"
-: "${ZSH_THEME_GIT_PROMPT_STASHED:="%{$fg[blue]%}⚑"}"
-: "${ZSH_THEME_GIT_PROMPT_CLEAN:="%{$fg_bold[green]%}✔"}"
+# Override PROMPT if it does not use the gitprompt function
+[[ "$PROMPT" != *gitprompt* && "$RPROMPT" != *gitprompt* ]] \
+    && PROMPT='%B%40<..<%~ %b$(gitprompt)%(?.%F{blue}❯%f%F{cyan}❯%f%F{green}❯%f.%F{red}❯❯❯%f) '
 
+# Find an awk implementation
+# Prefer nawk over mawk and mawk over awk
+(( $+commands[mawk] )) && : "${ZSH_GIT_PROMPT_AWK_CMD:=mawk}"
+(( $+commands[nawk] )) && : "${ZSH_GIT_PROMPT_AWK_CMD:=nawk}"
+                          : "${ZSH_GIT_PROMPT_AWK_CMD:=awk}"
 
-function _zsh_git_prompt_check_git_dir() {
-    if git status > /dev/null 2>&1; then
-        _ZSH_GIT_PROMPT_IS_GIT_DIR=1
-    else
-        unset _ZSH_GIT_PROMPT_IS_GIT_DIR
-    fi
-}
-
-function _zsh_git_prompt_chpwd_hook() {
-    _zsh_git_prompt_check_git_dir
-}
-
-function _zsh_git_prompt_preexec_hook() {
-    # Tell precmd hook to check if we are in a git repo, only if we are not currently in a git repo
-    # and only if a new repo might have been created (using various commands).
-    case "$2" in
-        git*|hub*|gh*|stg*|tig*)
-            [[ -z "$_ZSH_GIT_PROMPT_IS_GIT_DIR" ]] && _ZSH_GIT_PROMPT_OUT_OF_SYNC=1
-            ;;
-    esac
-
-    # Tell precmd hook to check if we are in a git repo, only if we are currently in a git repo and
-    # only if the .git folder might have been modified.
-    case "$3" in
-        *.git*)
-            [[ -n "$_ZSH_GIT_PROMPT_IS_GIT_DIR" ]] && _ZSH_GIT_PROMPT_OUT_OF_SYNC=1
-            ;;
-    esac
-}
-
-function _zsh_git_prompt_precmd_hook() {
-    if [[ -n "$_ZSH_GIT_PROMPT_OUT_OF_SYNC" ]]; then
-        _zsh_git_prompt_check_git_dir
-        unset _ZSH_GIT_PROMPT_OUT_OF_SYNC
-    fi
-}
-
-autoload -U add-zsh-hook
-add-zsh-hook chpwd _zsh_git_prompt_chpwd_hook
-add-zsh-hook preexec _zsh_git_prompt_preexec_hook
-add-zsh-hook precmd _zsh_git_prompt_precmd_hook
-_zsh_git_prompt_check_git_dir
-
-
-function gitprompt() {
-    if [[ -z "$_ZSH_GIT_PROMPT_IS_GIT_DIR" ]]; then
-        return
-    fi
-
-    (
+function _zsh_git_prompt_git_status() {
+    emulate -L zsh
+    {
         [[ -n "$ZSH_GIT_PROMPT_SHOW_STASH" ]] && (
             c=$(git rev-list --walk-reflogs --count refs/stash 2> /dev/null)
             [[ -n "$c" ]] && echo "# stash.count $c"
         )
         git status --branch --porcelain=v2 2>&1
-    ) | awk \
+    } | $ZSH_GIT_PROMPT_AWK_CMD \
         -v PREFIX="$ZSH_THEME_GIT_PROMPT_PREFIX" \
         -v SUFFIX="$ZSH_THEME_GIT_PROMPT_SUFFIX" \
         -v SEPARATOR="$ZSH_THEME_GIT_PROMPT_SEPARATOR" \
@@ -233,4 +199,92 @@ function gitprompt() {
                 print RC;
             }
         '
+}
+
+
+# The async code is taken from
+# https://github.com/zsh-users/zsh-autosuggestions/blob/master/src/async.zsh
+
+zmodload zsh/system
+
+function _zsh_git_prompt_async_request() {
+    typeset -g _ZSH_GIT_PROMPT_ASYNC_FD _ZSH_GIT_PROMPT_ASYNC_PID
+
+    # If we've got a pending request, cancel it
+    if [[ -n "$_ZSH_GIT_PROMPT_ASYNC_FD" ]] && { true <&$_ZSH_GIT_PROMPT_ASYNC_FD } 2>/dev/null; then
+
+        # Close the file descriptor and remove the handler
+        exec {_ZSH_GIT_PROMPT_ASYNC_FD}<&-
+        zle -F $_ZSH_GIT_PROMPT_ASYNC_FD
+
+        # Zsh will make a new process group for the child process only if job
+        # control is enabled (MONITOR option)
+        if [[ -o MONITOR ]]; then
+            # Send the signal to the process group to kill any processes that may
+            # have been forked by the suggestion strategy
+            kill -TERM -$_ZSH_GIT_PROMPT_ASYNC_PID 2>/dev/null
+        else
+            # Kill just the child process since it wasn't placed in a new process
+            # group. If the suggestion strategy forked any child processes they may
+            # be orphaned and left behind.
+            kill -TERM $_ZSH_GIT_PROMPT_ASYNC_PID 2>/dev/null
+        fi
+    fi
+
+    # Fork a process to fetch the git status and open a pipe to read from it
+    exec {_ZSH_GIT_PROMPT_ASYNC_FD}< <(
+        # Tell parent process our pid
+        echo $sysparams[pid]
+
+        _zsh_git_prompt_git_status
+    )
+
+    # There's a weird bug here where ^C stops working unless we force a fork
+    # See https://github.com/zsh-users/zsh-autosuggestions/issues/364
+    command true
+
+    # Read the pid from the child process
+    read _ZSH_GIT_PROMPT_ASYNC_PID <&$_ZSH_GIT_PROMPT_ASYNC_FD
+
+    # When the fd is readable, call the response handler
+    zle -F "$_ZSH_GIT_PROMPT_ASYNC_FD" _zsh_git_prompt_callback
+}
+
+# Called when new data is ready to be read from the pipe
+# First arg will be fd ready for reading
+# Second arg will be passed in case of error
+_ZSH_GIT_PROMPT_STATUS_OUTPUT=""
+function _zsh_git_prompt_callback() {
+    emulate -L zsh
+    local old_status="$_ZSH_GIT_PROMPT_STATUS_OUTPUT"
+
+    if [[ -z "$2" || "$2" == "hup" ]]; then
+        # Read output from fd
+        _ZSH_GIT_PROMPT_STATUS_OUTPUT="$(cat <&$1)"
+        if [[ "$old_status" != "$_ZSH_GIT_PROMPT_STATUS_OUTPUT" ]];then
+            zle reset-prompt
+            zle -R
+        fi
+
+        # Close the fd
+        exec {1}<&-
+    fi
+
+    # Always remove the handler
+    zle -F "$1"
+
+    # Unset global FD variable to prevent closing user created FDs in the precmd hook
+    unset _ZSH_GIT_PROMPT_ASYNC_FD
+}
+
+function _zsh_git_prompt_precmd_hook() {
+    _zsh_git_prompt_async_request
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook precmd _zsh_git_prompt_precmd_hook
+
+
+function gitprompt() {
+    echo -n "$_ZSH_GIT_PROMPT_STATUS_OUTPUT"
 }

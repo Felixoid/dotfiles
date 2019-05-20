@@ -45,7 +45,7 @@ function zle-line-init zle-keymap-select {
       viins|main) local VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
       vicmd)      local VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
     esac
-    export PS1="┌%(?..%F{1})[%D{%H:%M:%S}]%f %(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ ${VENV}${SSH_PROMPT}$(gitprompt)"$'\n'"└${VI} "
+    export PS1='┌%(?..%F{1})[%D{%H:%M:%S}]%f '"%(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ ${VENV}${SSH_PROMPT}"'$(gitprompt)'$'\n'"└${VI} "
     RPROMPT="%(?..%F{1}[e:%?]%f)"
     zle reset-prompt
     # this line fixes the issue with errasing last line in vim mode by Alt+A or Alt+I
