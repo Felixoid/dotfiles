@@ -48,6 +48,8 @@ if s:guttentags_reqs | Plug 'ludovicchabant/vim-gutentags' | endif
 Plug 'andymass/vim-matchup'
 Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'vim-pandoc/vim-pandoc'
+Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'rodjek/vim-puppet'
 Plug 'Felixoid/vim-puppet-class-alignment'
 Plug 'vim-ruby/vim-ruby'
