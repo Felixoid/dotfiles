@@ -85,7 +85,10 @@ export LESS_ADVANCED_PREPROCESSOR=1
 # keychain, only if SSH_* undefined
 unlock-rsa() {
   if [ -x /usr/bin/keychain ]; then
-    eval "$(/usr/bin/keychain --eval --systemd --inherit any-once -Q -q --agents gpg,ssh )"
+    # I want to avoid DNS requests
+    local host
+    host=$(uname -r 2>/dev/null || echo unknown)
+    eval "$(/usr/bin/keychain --host "${host}" --eval --systemd --inherit any-once -Q -q --agents gpg,ssh )"
     /usr/bin/keychain --timeout 59 -q "${HOME}"/.ssh/*_rsa
   fi
 }
