@@ -10,6 +10,9 @@ unsetopt NOMATCH
 setopt interactivecomments
 
 ############################## Prompting ##############################
+# use prompt substitution feature
+setopt PROMPT_SUBST
+
 # Vim modes lag
 export KEYTIMEOUT=1
 
@@ -32,6 +35,19 @@ else
 fi
 
 function zle-line-init zle-keymap-select {
+    [ "${VIRTUAL_ENV}" ] && _PROMPT_VENV="%F{green}venv=($(basename $VIRTUAL_ENV))%f "
+    case $KEYMAP in
+      viins|main) _PROMPT_VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
+      vicmd)      _PROMPT_VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
+    esac
+    zle reset-prompt
+    # this line fixes the issue with errasing last line in vim mode by Alt+A or Alt+I
+    zle -R
+}
+zle -N zle-line-init
+zle -N zle-keymap-select
+
+function prompt_setup() {
     # I want to avoid black color, that's why '% 7 + 1'
     local USER_CKSUM="$(cksum <<< $USER)"
     local HOST_CKSUM="$(cksum <<< $HOST)"
@@ -40,19 +56,11 @@ function zle-line-init zle-keymap-select {
     local ROOT_PROMPT="%F{red}%B%n@%m%b%f"
     local USER_PROMPT="%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f"
     [ "${SSH_CLIENT}" ] && local SSH_PROMPT="%F{yellow}[ssh from ${SSH_CLIENT%% *}]%f "
-    [ "${VIRTUAL_ENV}" ] && local VENV="%F{green}venv=($(basename $VIRTUAL_ENV))%f "
-    case $KEYMAP in
-      viins|main) local VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
-      vicmd)      local VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
-    esac
-    export PS1='┌%(?..%F{1})[%D{%H:%M:%S}]%f '"%(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ ${VENV}${SSH_PROMPT}"'$(gitprompt)'$'\n'"└${VI} "
+
+    PS1="┌%(?..%F{1})[%D{%H:%M:%S}]%f %(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ "'${_PROMPT_VENV}'"${SSH_PROMPT}"'$(gitprompt)'$'\n└${_PROMPT_VI} '
     RPROMPT="%(?..%F{1}[e:%?]%f)"
-    zle reset-prompt
-    # this line fixes the issue with errasing last line in vim mode by Alt+A or Alt+I
-    zle -R
 }
-zle -N zle-line-init
-zle -N zle-keymap-select
+prompt_setup
 
 #################### Prompting end ####################
 
