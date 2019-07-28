@@ -12,6 +12,7 @@
   cycle_next = None
   help = <Alt>F1
   hide_window = None
+  layout_launcher = None
   page_down_half = <Shift>Down
   page_up_half = <Shift>Up
 [layouts]
