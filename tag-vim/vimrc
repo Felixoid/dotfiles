@@ -95,7 +95,7 @@ set scrolloff=3
 set incsearch
 set tabpagemax=40
 set history=1000
-imap <C-space> 
+imap <C-z> 
 
 " Copy and paste to and from xclip
 nmap <leader>y "*y
