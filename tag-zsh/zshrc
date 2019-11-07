@@ -1,3 +1,6 @@
+# Include bash profile by default
+emulate sh -c 'source /etc/profile'
+
 zstyle :compinstall filename "${HOME}/.zshrc"
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' max-errors 1
@@ -66,9 +69,6 @@ prompt_setup
 
 # Global cross-shells
 [ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
-
-# Include bash profile by default
-emulate sh -c 'source /etc/profile'
 
 # Unlock ssh rsa keys, defined in ${HOME}/.config/shells/rc
 zle -N unlock-rsa
