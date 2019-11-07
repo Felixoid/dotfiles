@@ -55,7 +55,7 @@ if ! isdirectory(expand(&g:undodir))
   silent! call mkdir(expand(&g:undodir), 'p', 0700)
 endif
 
-" tabulation
+" tabulation and indentation
 set autoindent
 set expandtab
 set ts=4
@@ -103,8 +103,17 @@ nmap <leader>p "*p
 nmap <leader>Y "*Y
 nmap <leader>P "*P
 
+" Restore the last cursor position in file
+augroup RestoreCursos
+  autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
+augroup end
+
 "setlocal spell spelllang=ru_yo,en_us
 set nospell
+
+" Open files from QuickFix and Location list in the current tab OR in the new
+" tab if buffer isn't open
+set switchbuf+=usetab,newtab
 
 " YaML
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
@@ -155,10 +164,12 @@ au FileType go set noexpandtab
 au FileType go set ts=4
 au FileType go set sw=4
 au FileType go set sts=4
-au FileType go nmap <Leader>r <Plug>(go-run)
-au FileType go nmap <Leader>b :GoBuild!<CR>
+au FileType go nmap <Leader>r :GoRun! -race %<CR>
+au FileType go nmap <Leader>b :GoBuild! -race<CR>
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap <Leader>c <Plug>(go-coverage)
+au FileType go nmap <leader>h <Plug>(go-referrers)
+au FileType go nmap <Leader>dd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
 au FileType go nmap <Leader>dt <Plug>(go-def-tab)
