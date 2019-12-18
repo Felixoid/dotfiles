@@ -60,9 +60,10 @@ function prompt_setup() {
     local USER_PROMPT="%F{$USER_FG}%n%f@%F{$HOST_FG}%m%f"
     [ "${SSH_CLIENT}" ] && local SSH_PROMPT="%F{yellow}[ssh from ${SSH_CLIENT%% *}]%f "
 
-    PS1="┌%(?..%F{1})[%D{%H:%M:%S}]%f %(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ "'${_PROMPT_VENV}'"${SSH_PROMPT}"'$(gitprompt)'$'\n└${_PROMPT_VI} '
+    PS1="┌%(?..%F{1})[%D{%H:%M:%S}]%f %(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ "'${_PROMPT_VENV}'"${SSH_PROMPT}"'$(gitprompt)$(gitprompt_secondary)'$'\n└${_PROMPT_VI} '
     RPROMPT="%(?..%F{1}[e:%?]%f)"
 }
+ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 prompt_setup
 
 #################### Prompting end ####################
