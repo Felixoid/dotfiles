@@ -1,4 +1,4 @@
-SYMLINK_DIRS="vim config/* ctags.d"
-COPY_ALWAYS="config/workrc/*"
+SYMLINK_DIRS="vim config/git config/shells config/terminator ctags.d"
+COPY_ALWAYS="config/workrc/* config/systemd/user/* config/zsh/*"
 TAGS="zsh dmz vim"
 EXCLUDES="README.md"
