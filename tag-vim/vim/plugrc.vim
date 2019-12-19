@@ -41,10 +41,12 @@ if s:py3 | Plug 'vim-vdebug/vdebug' | endif
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ivalkeen/vim-ctrlp-tjump'
+Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
 Plug 'jamessan/vim-gnupg'
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 if s:guttentags_reqs | Plug 'ludovicchabant/vim-gutentags' | endif
+Plug 'vim-latex/vim-latex'
 Plug 'andymass/vim-matchup'
 Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
