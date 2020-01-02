@@ -211,6 +211,8 @@ let g:ycm_python_binary_path = 'python3'
 let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 let g:ycm_goto_buffer_command = 'new-tab'
+let g:ycm_clangd_uses_ycmd_caching = 0
+let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
 
 " UtilSnippet
