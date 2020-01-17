@@ -159,7 +159,6 @@ au FileType python setlocal wrap
 let g:jedi#use_tabs_not_buffers = 1 " open every goto in tabs
 
 " vim-go
-let g:go_metalinter_autosave = 1
 au FileType go set noexpandtab
 au FileType go set ts=4
 au FileType go set sw=4
@@ -202,8 +201,13 @@ let g:syntastic_check_on_open = 1
 " ALE
 let g:ale_lint_on_insert_leave = 1
 let g:ale_lint_on_text_changed = 0
+let g:ale_go_gometalinter_options = '--fast'
 " only use linters that uses compile_commands.json
-let g:ale_linters = {'cpp': ['clangcheck']}
+" use most of linters for golang
+let g:ale_linters = {
+      \ 'cpp': ['clangcheck'],
+      \ 'go': ['gometalinter', 'gofmt', 'golint', 'go vet', 'go build']
+      \}
 
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
