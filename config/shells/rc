@@ -25,6 +25,7 @@ fi
 # GO
 export GOPATH=$HOME/OPT/go
 export GOROOT="/usr/lib/go"
+_appendpath "${GOPATH}/bin"
 
 # EDITOR
 export EDITOR=vim
