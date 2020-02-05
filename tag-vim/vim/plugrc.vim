@@ -35,7 +35,7 @@ Plug 'saltstack/salt-vim'
 Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticReset' }
 Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
-Plug 'SirVer/ultisnips'
+if s:py3 | Plug 'SirVer/ultisnips' | endif
 Plug 'junegunn/vader.vim'
 if s:py3 | Plug 'vim-vdebug/vdebug' | endif
 Plug 'vim-airline/vim-airline'
