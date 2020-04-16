@@ -1,4 +1,4 @@
-SYMLINK_DIRS="vim config/git config/shells config/terminator ctags.d"
+SYMLINK_DIRS="vim config/tmux config/git config/shells config/terminator config/alacritty ctags.d"
 COPY_ALWAYS="config/workrc/* config/systemd/user/* config/zsh/*"
-TAGS="zsh dmz vim"
+TAGS="zsh dmz vim tmux"
 EXCLUDES="README.md"

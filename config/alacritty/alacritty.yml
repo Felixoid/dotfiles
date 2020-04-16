@@ -1,0 +1,77 @@
+env:
+  TERM: xterm-256color
+
+font:
+  # Normal (roman) font face
+  normal:
+    family: Consolas Ligaturized v2
+    #style: Retina
+
+  ## Point size
+  size: 14.0
+
+  # Offset is the extra space around each character. `offset.y` can be thought of
+  # as modifying the line spacing, and `offset.x` as modifying the letter spacing.
+  #offset:
+  #  x: 0
+  #  y: 0
+
+  # Glyph offset determines the locations of the glyphs within their cells with
+  # the default being at the bottom. Increasing `x` moves the glyph to the right,
+  # increasing `y` moves the glyph upwards.
+  #glyph_offset:
+  #  x: 0
+  #  y: 0
+
+  # Thin stroke font rendering (macOS only)
+  #
+  # Thin strokes are suitable for retina displays, but for non-retina screens
+  # it is recommended to set `use_thin_strokes` to `false`
+  #
+  # macOS >= 10.14.x:
+  #
+  # If the font quality on non-retina display looks bad then set
+  # `use_thin_strokes` to `true` and enable font smoothing by running the
+  # following command:
+  #   `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
+  #
+  # This is a global setting and will require a log out or restart to take
+  # effect.
+  #use_thin_strokes: true
+
+# If `true`, bold text is drawn using the bright color variants.
+draw_bold_text_with_bright_colors: true
+
+colors:
+  # Default colors
+  primary:
+    background: '#212121'
+    foreground: '#d0d0d0'
+    bright_foreground: '#dadada'
+
+  # Cursor colors
+  cursor:
+   text: '#101010'
+   cursor: '#d0d0d0'
+
+  # Normal colors
+  normal:
+    black:   '#151515'
+    red:     '#ac4142'
+    green:   '#7e8e50'
+    yellow:  '#e5b567'
+    blue:    '#6c99bb'
+    magenta: '#9f4e85'
+    cyan:    '#7dd6cf'
+    white:   '#d0d0d0'
+
+  # Bright colors
+  bright:
+    black:   '#505050'
+    red:     '#b33a3a'
+    green:   '#6e9e40'
+    yellow:  '#e5c967'
+    blue:    '#6299c4'
+    magenta: '#aa4088'
+    cyan:    '#70dfd6'
+    white:   '#f5f5f5'
