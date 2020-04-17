@@ -20,7 +20,10 @@ setopt PROMPT_SUBST
 # Vim modes lag
 export KEYTIMEOUT=1
 
-#Prompts
+# Disable virtualenv prompt changing
+VIRTUAL_ENV_DISABLE_PROMPT=true
+
+# Character for identify CVS
 function prompt_char {
     git rev-parse --git-dir >/dev/null 2>&1 && echo '±' && return
     svn info >/dev/null 2>&1 && echo 'ƨ' && return
