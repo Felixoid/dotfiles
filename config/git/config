@@ -8,6 +8,8 @@
 	tool = vimdiff
 [push]
 	default = simple
+[pull]
+	rebase = true
 [core]
 	excludesfile = ~/.config/git/gitignore
 [filter "lfs"]

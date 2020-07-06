@@ -33,8 +33,8 @@ function prompt_char {
 
 if [ -r ~/.config/zsh/git-prompt.zsh ]; then
   source ~/.config/zsh/git-prompt.zsh
-  _GIT_PROMPT_ENABLED=true
   ZSH_GIT_PROMPT_SHOW_STASH=true
+  ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 else
   gitprompt() {
     :
@@ -67,7 +67,6 @@ function prompt_setup() {
     PS1="┌%(?..%F{1})[%D{%H:%M:%S}]%f %(!.${ROOT_PROMPT}.${USER_PROMPT}):%~ "'${_PROMPT_VENV}'"${SSH_PROMPT}"'$(gitprompt)$(gitprompt_secondary)'$'\n└${_PROMPT_VI} '
     RPROMPT="%(?..%F{1}[e:%?]%f)"
 }
-ZSH_GIT_PROMPT_ENABLE_SECONDARY=1
 prompt_setup
 
 #################### Prompting end ####################
