@@ -1,5 +1,7 @@
 " Plug sources
-source ~/.vim/plugrc.vim
+if filereadable(expand("~/.vim/plugrc.vim"))
+  source ~/.vim/plugrc.vim
+endif
 
 " GVIM
 if has('gui_running')
@@ -108,7 +110,7 @@ augroup RestoreCursos
   autocmd BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 augroup end
 
-"setlocal spell spelllang=ru_yo,en_us
+setlocal spelllang=ru_yo,en_us
 set nospell
 
 " Open files from QuickFix and Location list in the current tab OR in the new
@@ -208,6 +210,10 @@ let g:ale_linters = {
       \ 'cpp': ['clangcheck'],
       \ 'go': ['gometalinter', 'gofmt', 'golint', 'go vet', 'go build']
       \}
+let g:ale_fixers = {
+      \ 'python': ['black'],
+      \}
+let g:ale_fix_on_save = 1
 
 " YouCompleteMe
 let g:ycm_collect_identifiers_from_tags_files = 1
