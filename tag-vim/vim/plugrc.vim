@@ -20,7 +20,7 @@ Plug 'vim-scripts/Conque-GDB'
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'tmhedberg/SimpylFold'
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py --clangd-completer' }
+Plug 'Valloric/YouCompleteMe', { 'do': 'git submodule update --init --recursive; ./install.py --clangd-completer --go-completer' }
 if s:ale_reqs | Plug 'w0rp/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'ctrlpvim/ctrlp.vim'
@@ -50,12 +50,14 @@ Plug 'vim-latex/vim-latex'
 Plug 'andymass/vim-matchup'
 Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'lifepillar/vim-outlaw'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
 Plug 'rodjek/vim-puppet'
 Plug 'Felixoid/vim-puppet-class-alignment'
 Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
+Plug 'brianrodri/vim-sort-folds'
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 call plug#end()
