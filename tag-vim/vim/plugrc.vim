@@ -57,7 +57,7 @@ Plug 'rodjek/vim-puppet'
 Plug 'Felixoid/vim-puppet-class-alignment'
 Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
-Plug 'brianrodri/vim-sort-folds'
+if s:py | Plug 'brianrodri/vim-sort-folds' | endif
 Plug 'tpope/vim-surround'
 Plug 'lervag/vimtex'
 call plug#end()
