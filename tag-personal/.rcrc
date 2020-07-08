@@ -1,5 +1,5 @@
 SYMLINK_DIRS="vim config/*"
 COPY_ALWAYS="* config/*"
-TAGS="zsh vim"
+TAGS="zsh vim dmz"
 EXCLUDES="README.md rcrc ctags.d xinitrc config/terminator config/systemd pam_environment"
 DOTFILES_DIRS="~${USER}/.dotfiles"
