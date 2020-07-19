@@ -16,7 +16,7 @@ let s:ale_reqs = ( has('timers') && has('nvim-0.2.0') ) ||
 
 " to suppress an error on hosts w/o `git`
 silent! call plug#begin()
-Plug 'vim-scripts/Conque-GDB'
+Plug 'vim-scripts/Conque-GDB', { 'on': ['ConqueTerm', 'ConqueTermTab'] }
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'tmhedberg/SimpylFold'
 Plug 'Glench/Vim-Jinja2-Syntax'
@@ -37,7 +37,7 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 if s:py3 | Plug 'SirVer/ultisnips' | endif
 Plug 'junegunn/vader.vim'
-if s:py3 | Plug 'vim-vdebug/vdebug' | endif
+if s:py3 | Plug 'vim-vdebug/vdebug', { 'on': ['Breakpoint', 'VdebugStart', 'VdebugTrace', 'VdebugOpt'] } | endif
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ivalkeen/vim-ctrlp-tjump'
