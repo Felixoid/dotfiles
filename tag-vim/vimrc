@@ -142,7 +142,7 @@ set clipboard-=autoselect
 
 " NERDTree
 let g:NERDTreeWinSize=22
-let g:nerdtree_tabs_open_on_console_startup = 1
+let g:nerdtree_tabs_open_on_console_startup = 0
 let g:nerdtree_tabs_smart_startup_focus = 2
 let g:nerdtree_tabs_focus_on_files = 1
 autocmd FileType gitrebase let g:nerdtree_tabs_open_on_console_startup = 0
@@ -169,7 +169,7 @@ au FileType go nmap <Leader>r :GoRun! -race %<CR>
 au FileType go nmap <Leader>b :GoBuild! -race<CR>
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap <Leader>c <Plug>(go-coverage)
-au FileType go nmap <leader>h <Plug>(go-referrers)
+au FileType go nmap <Leader>h <Plug>(go-referrers)
 au FileType go nmap <Leader>dd <Plug>(go-def)
 au FileType go nmap <Leader>ds <Plug>(go-def-split)
 au FileType go nmap <Leader>dv <Plug>(go-def-vertical)

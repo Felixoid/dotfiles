@@ -60,6 +60,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
 if s:py | Plug 'brianrodri/vim-sort-folds' | endif
 Plug 'tpope/vim-surround'
+Plug 'tpope/vim-unimpaired'
 Plug 'lervag/vimtex'
 call plug#end()
 
