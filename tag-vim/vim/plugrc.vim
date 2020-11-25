@@ -23,6 +23,7 @@ Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer' }
 if s:ale_reqs | Plug 'w0rp/ale' | endif
 Plug 'jiangmiao/auto-pairs'
+Plug 'wellle/context.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 if s:py | Plug 'davidhalter/jedi-vim' | endif
 Plug 'nanotech/jellybeans.vim'
@@ -37,7 +38,6 @@ Plug 'godlygeek/tabular'
 Plug 'majutsushi/tagbar'
 if s:py3 | Plug 'SirVer/ultisnips' | endif
 Plug 'junegunn/vader.vim'
-if s:py3 | Plug 'vim-vdebug/vdebug', { 'on': ['Breakpoint', 'VdebugStart', 'VdebugTrace', 'VdebugOpt'] } | endif
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'ivalkeen/vim-ctrlp-tjump'
