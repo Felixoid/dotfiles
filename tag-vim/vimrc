@@ -83,10 +83,9 @@ function! ChangeFileencoding()
     execute 'e ++enc='.encodings[choice].' %:p'
   endif
 endf
-nmap <F8> :call ChangeFileencoding()<CR>
 
 " toggles maps
-nmap <F7> :set number! relativenumber!<CR>
+nmap <leader>tN :set number! relativenumber!<CR>
 nmap <leader>tT :set expandtab!<CR>
 nmap <leader>tP :set paste!<CR>
 
