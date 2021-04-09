@@ -20,6 +20,8 @@
 	path = ~/OPT/InnoGames/.gitconfig
 [includeIf "gitdir:~/OPT/Felixoid/"]
 	path = ~/.config/git/git-personal
+[includeIf "gitdir:~/Space/Felixoid/"]
+	path = ~/.config/git/git-personal
 [includeIf "gitdir:~/.cache/yay/"]
 	path = ~/.config/git/git-personal
 [includeIf "gitdir:/tmp"]
