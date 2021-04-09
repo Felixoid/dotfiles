@@ -21,11 +21,23 @@
 
 autoload -U colors && colors
 
+# Settings
+: "${ZSH_GIT_PROMPT_SHOW_UPSTREAM=""}"
+: "${ZSH_GIT_PROMPT_SHOW_STASH=""}"
+: "${ZSH_GIT_PROMPT_ENABLE_SECONDARY=""}"
+: "${ZSH_GIT_PROMPT_NO_ASYNC=""}"
+: "${ZSH_GIT_PROMPT_FORCE_BLANK=""}"
+: "${ZSH_GIT_PROMPT_AWK_CMD=""}"
+
+# Theming
 : "${ZSH_THEME_GIT_PROMPT_PREFIX="["}"
 : "${ZSH_THEME_GIT_PROMPT_SUFFIX="] "}"
 : "${ZSH_THEME_GIT_PROMPT_SEPARATOR="|"}"
 : "${ZSH_THEME_GIT_PROMPT_DETACHED="%{$fg_bold[cyan]%}:"}"
 : "${ZSH_THEME_GIT_PROMPT_BRANCH="%{$fg_bold[magenta]%}"}"
+: "${ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL="%{$fg_bold[yellow]%}⟳ "}"
+: "${ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX="%{$fg[red]%}(%{$fg[yellow]%}"}"
+: "${ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX="%{$fg[red]%})"}"
 : "${ZSH_THEME_GIT_PROMPT_BEHIND="↓"}"
 : "${ZSH_THEME_GIT_PROMPT_AHEAD="↑"}"
 : "${ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[red]%}✖"}"
@@ -49,13 +61,14 @@ setopt PROMPT_SUBST
 
 # Override PROMPT if it does not use the gitprompt function
 [[ "$PROMPT" != *gitprompt* && "$RPROMPT" != *gitprompt* ]] \
-    && PROMPT='%B%40<..<%~ %b$(gitprompt)%(?.%F{blue}❯%f%F{cyan}❯%f%F{green}❯%f.%F{red}❯❯❯%f) '
+    && PROMPT='%B%40<..<%~ %b$(gitprompt)' \
+    && PROMPT+='%(?.%(!.%F{white}❯%F{yellow}❯%F{red}.%F{blue}❯%F{cyan}❯%F{green})❯.%F{red}❯❯❯)%f '
 
 # Find an awk implementation
 # Prefer nawk over mawk and mawk over awk
-(( $+commands[mawk] )) && : "${ZSH_GIT_PROMPT_AWK_CMD:=mawk}"
-(( $+commands[nawk] )) && : "${ZSH_GIT_PROMPT_AWK_CMD:=nawk}"
-                          : "${ZSH_GIT_PROMPT_AWK_CMD:=awk}"
+(( $+commands[mawk] ))  &&  : "${ZSH_GIT_PROMPT_AWK_CMD:=mawk}"
+(( $+commands[nawk] ))  &&  : "${ZSH_GIT_PROMPT_AWK_CMD:=nawk}"
+                            : "${ZSH_GIT_PROMPT_AWK_CMD:=awk}"
 
 function _zsh_git_prompt_git_status() {
     emulate -L zsh
@@ -64,13 +77,18 @@ function _zsh_git_prompt_git_status() {
             c=$(command git rev-list --walk-reflogs --count refs/stash 2> /dev/null)
             [[ -n "$c" ]] && echo "# stash.count $c"
         )
-        command git status --branch --porcelain=v2 2>&1 || echo "fatal: git command failed"
+        GIT_OPTIONAL_LOCKS=0 command git status --branch --porcelain=v2 2>&1 \
+            || echo "fatal: git command failed"
     } | $ZSH_GIT_PROMPT_AWK_CMD \
         -v PREFIX="$ZSH_THEME_GIT_PROMPT_PREFIX" \
         -v SUFFIX="$ZSH_THEME_GIT_PROMPT_SUFFIX" \
         -v SEPARATOR="$ZSH_THEME_GIT_PROMPT_SEPARATOR" \
         -v DETACHED="$ZSH_THEME_GIT_PROMPT_DETACHED" \
         -v BRANCH="$ZSH_THEME_GIT_PROMPT_BRANCH" \
+        -v UPSTREAM_TYPE="$ZSH_GIT_PROMPT_SHOW_UPSTREAM" \
+        -v UPSTREAM_SYMBOL="$ZSH_THEME_GIT_PROMPT_UPSTREAM_SYMBOL" \
+        -v UPSTREAM_PREFIX="$ZSH_THEME_GIT_PROMPT_UPSTREAM_PREFIX" \
+        -v UPSTREAM_SUFFIX="$ZSH_THEME_GIT_PROMPT_UPSTREAM_SUFFIX" \
         -v BEHIND="$ZSH_THEME_GIT_PROMPT_BEHIND" \
         -v AHEAD="$ZSH_THEME_GIT_PROMPT_AHEAD" \
         -v UNMERGED="$ZSH_THEME_GIT_PROMPT_UNMERGED" \
@@ -87,6 +105,7 @@ function _zsh_git_prompt_git_status() {
                 fatal = 0;
                 oid = "";
                 head = "";
+                upstream = "";
                 ahead = 0;
                 behind = 0;
                 untracked = 0;
@@ -106,6 +125,10 @@ function _zsh_git_prompt_git_status() {
 
             $2 == "branch.head" {
                 head = $3;
+            }
+
+            $2 == "branch.upstream" {
+                upstream = $3;
             }
 
             $2 == "branch.ab" {
@@ -150,6 +173,18 @@ function _zsh_git_prompt_git_status() {
                     print BRANCH;
                     gsub("%", "%%", head);
                     print head;
+                }
+                print RC;
+
+                if (upstream != "") {
+                    gsub("%", "%%", upstream);
+                    if (UPSTREAM_TYPE == "symbol") {
+                        print UPSTREAM_SYMBOL;
+                    } else if (UPSTREAM_TYPE == "full") {
+                        print UPSTREAM_PREFIX;
+                        print upstream;
+                        print UPSTREAM_SUFFIX;
+                    }
                 }
                 print RC;
 
@@ -249,7 +284,8 @@ function _zsh_git_prompt_async_request() {
     typeset -g _ZSH_GIT_PROMPT_ASYNC_FD _ZSH_GIT_PROMPT_ASYNC_PID
 
     # If we've got a pending request, cancel it
-    if [[ -n "$_ZSH_GIT_PROMPT_ASYNC_FD" ]] && { true <&$_ZSH_GIT_PROMPT_ASYNC_FD } 2>/dev/null; then
+    if [[ -n "$_ZSH_GIT_PROMPT_ASYNC_FD" ]] && { true <&$_ZSH_GIT_PROMPT_ASYNC_FD } 2>/dev/null;
+    then
 
         # Close the file descriptor and remove the handler
         exec {_ZSH_GIT_PROMPT_ASYNC_FD}<&-
