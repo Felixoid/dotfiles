@@ -1,0 +1,16 @@
+#!/bin/sh
+# Re-add Yubikey to ssh-agent
+alias sp='ssh-add -e /usr/lib/libykcs11.so; ssh-add -s /usr/lib/libykcs11.so'
+
+alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'
+
+#gnupg.vim
+GPG_TTY="$(tty)"
+export GPG_TTY
+
+#English git
+alias git="LC_ALL=en_US.UTF-8 git"
+
+# pdsh alias for use stdin
+alias psh='pdsh -w^- '
+

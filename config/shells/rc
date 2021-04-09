@@ -24,7 +24,6 @@ fi
 
 # GO
 export GOPATH=$HOME/OPT/go
-export GOROOT="/usr/lib/go"
 _appendpath "${GOPATH}/bin"
 
 # EDITOR
@@ -46,6 +45,9 @@ if [ -x /usr/bin/dircolors ]; then
   alias fgrep='fgrep --color=auto'
   alias egrep='egrep --color=auto'
 fi
+
+SOURCE_DIR="$(dirname "$0")"
+[ -f "${SOURCE_DIR}"/aliases ] && source "${SOURCE_DIR}"/aliases
 
 # SSH ask pass with GUI
 for ASKPASS in /usr/lib/seahorse/ssh-askpass \
@@ -74,20 +76,25 @@ if [ -r "$HOME/.config/workrc/" ] \
   done
 fi
 
-alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'
-
-#gnupg.vim
-GPG_TTY="$(tty)"
-export GPG_TTY
-
-#English git
-alias git="LC_ALL=en_US.UTF-8 git"
-
-# pdsh alias for use stdin
-alias psh='pdsh -w^- '
-
-# cd to current git root
-alias cg='cd $(git rev-parse --show-toplevel)'
+# cd to the root of the current git directory
+# If $PWD is submodule, will cd to the root of the top ancestor
+# It requires to stay in the current directory, if the root is . or unknown,
+# and use cd only once, to have a way to do `cd -`
+cg() {
+  _cg() {
+    local top; top="$(git rev-parse --show-cdup)"
+    top="${top:-./}"
+    local super_root; super_root="$(git rev-parse --show-superproject-working-tree)"
+    if [[ "$super_root" ]]; then
+      printf '%s' "$top../"
+      ( cd "$top../" && _cg || return )
+    fi
+    printf '%s' "$top"
+  }
+  local git_root
+  git_root="$(_cg)"
+  [[ "x${git_root}" != "x./" ]] && cd "${git_root}" && return || return 0
+}
 
 # docker build cont
 dobuild() {
