@@ -4,7 +4,7 @@ env:
 font:
   # Normal (roman) font face
   normal:
-    family: Consolas Ligaturized v2
+    family: Consolas ligaturized v2
     #style: Retina
 
   ## Point size
