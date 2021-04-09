@@ -177,6 +177,8 @@ au FileType go nmap <Leader>dt <Plug>(go-def-tab)
 au FileType go nmap <Leader>gd <Plug>(go-doc)
 au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>gt <Plug>(go-doc-tab)
+au FileType go nmap <Leader>ce <Plug>(go-callees)
+au FileType go nmap <Leader>cr <Plug>(go-callers)
 
 " vim-gutentags
 set tags+=tags;/
@@ -230,6 +232,7 @@ nnoremap <leader>gt :YcmCompleter GoTo<CR>
 let g:UltiSnipsNoPythonWarning = 1
 
 " vimtex for LaTeX
+let g:tex_flavor = 'latex'
 if exists('g:vimtex#re#youcompleteme')
   if !exists('g:ycm_semantic_triggers')
     let g:ycm_semantic_triggers = {}
