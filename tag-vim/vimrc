@@ -221,6 +221,8 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 
 " YouCompleteMe
+" Pop up the hover in 1.5 secs
+set updatetime=1500
 let g:ycm_collect_identifiers_from_tags_files = 1
 let g:ycm_python_binary_path = 'python3'
 let g:ycm_key_list_select_completion = []
