@@ -57,6 +57,9 @@ if ! isdirectory(expand(&g:undodir))
   silent! call mkdir(expand(&g:undodir), 'p', 0700)
 endif
 
+" persistent undo between sessions
+set undofile
+
 " tabulation and indentation
 set autoindent
 set expandtab
