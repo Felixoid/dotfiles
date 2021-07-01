@@ -45,7 +45,7 @@ Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-ui'
 Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-fugitive'
-Plug 'jamessan/vim-gnupg'
+Plug 'jamessan/vim-gnupg', { 'branch': 'main' }
 Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 if s:guttentags_reqs | Plug 'ludovicchabant/vim-gutentags' | endif
 Plug 'vim-latex/vim-latex'

@@ -182,6 +182,8 @@ au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
 au FileType go nmap <Leader>gt <Plug>(go-doc-tab)
 au FileType go nmap <Leader>ce <Plug>(go-callees)
 au FileType go nmap <Leader>cr <Plug>(go-callers)
+let g:go_addtags_transform = 'lispcase'
+let g:go_addtags_skip_unexported = 1
 
 " vim-gutentags
 set tags+=tags;/
