@@ -6,7 +6,7 @@ endif
 " GVIM
 if has('gui_running')
   lcd %:p:h
-  set guifont=Consolas\ for\ Powerline\ Regular\ 14
+  set guifont=Consolas\ ligaturized\ v2\ 13
 endif
 
 " theming
