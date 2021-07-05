@@ -13,11 +13,14 @@ _appendpath () {
 
 _appendpath "${HOME}/bin"
 ## ruby
-if [ -d "$HOME/.gem/ruby" ] && [ -n "$(ls "$HOME/.gem/ruby/"*"/bin" 2>/dev/null)" ]; then
-  for dir in "$HOME/.gem/ruby/"*"/bin"; do
-    _appendpath "${dir}"
-  done
-fi
+## Modern ruby is installed to ~/.local/share/gem/ruby. but the old one to ~/.gem/ruby
+for RUBY_DIR in "$HOME/.gem/ruby" "$HOME/.local/share/gem/ruby"; do
+  if [ -d "${RUBY_DIR}" ] && [ -n "$(ls "${RUBY_DIR}/"*"/bin" 2>/dev/null)" ]; then
+    for dir in "${RUBY_DIR}/"*"/bin"; do
+      _appendpath "${dir}"
+    done
+  fi
+done
 
 # added by travis gem
 [ -f /home/felixoid/.travis/travis.sh ] && source /home/felixoid/.travis/travis.sh
