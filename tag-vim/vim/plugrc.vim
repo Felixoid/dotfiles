@@ -52,6 +52,7 @@ Plug 'vim-latex/vim-latex'
 Plug 'andymass/vim-matchup'
 Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
+Plug 'jceb/vim-orgmode'
 Plug 'lifepillar/vim-outlaw'
 Plug 'vim-pandoc/vim-pandoc'
 Plug 'vim-pandoc/vim-pandoc-syntax'
