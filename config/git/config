@@ -16,8 +16,8 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 	required = true
-[includeIf "gitdir:~/OPT/InnoGames/"]
-	path = ~/OPT/InnoGames/.gitconfig
+[includeIf "gitdir:~/Space/LM/"]
+	path = ~/Space/LM/.gitconfig
 [includeIf "gitdir:~/OPT/Felixoid/"]
 	path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/"]
