@@ -8,4 +8,8 @@ rcup -f -v -x README.md && rcup -fv # first for update rcrc, second for proper i
 
 This file is created via:
 
-`rcup -fvg | sed "s:${PWD}:\$PWD:; s:$HOME:\$HOME:" > standalone_rcup.sh`
+`rcup -fvg | sed "s:$PWD:\${PWD}:; s:$HOME:\${HOME}:" > standalone_rcup.sh`
+
+The easiest way to use is:
+
+`curl https://github.com/Felixoid/dotfiles/archive/master.tar.gz -L | tar xz && cd dotfiles-master && bash standalone_rcup.sh && cd -`
