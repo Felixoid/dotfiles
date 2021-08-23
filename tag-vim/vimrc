@@ -16,7 +16,7 @@ catch /Cannot find color scheme/
   silent echo ''
 endtry
 set list
-set listchars=tab:\|—,trail:~
+set listchars=tab:\|-,trail:~
 set cursorline
 set hlsearch
 " <c-/> for switch highlight
