@@ -21,7 +21,7 @@ Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside lo
 Plug 'tmhedberg/SimpylFold'
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer' }
-if s:ale_reqs | Plug 'w0rp/ale' | endif
+if s:ale_reqs | Plug 'dense-analysis/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/context.vim'
 Plug 'ctrlpvim/ctrlp.vim'
