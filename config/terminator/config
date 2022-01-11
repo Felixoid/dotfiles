@@ -1,38 +1,33 @@
 [global_config]
-  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
   focus = system
-  inactive_color_offset = 0.75
-  title_font = Monaco for Powerline 13
-  title_inactive_bg_color = "#2e3436"
-  title_inactive_fg_color = "#babdb6"
   title_transmit_bg_color = "#480d57"
+  title_inactive_fg_color = "#babdb6"
+  title_inactive_bg_color = "#2e3436"
+  inactive_color_offset = 0.75
+  enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  title_use_system_font = False
+  title_font = Consolas ligaturized v2 12
 [keybindings]
-  broadcast_all = None
-  broadcast_off = <Primary><Alt>o
-  cycle_next = None
-  help = <Alt>F1
-  hide_window = None
-  layout_launcher = None
-  page_down_half = <Shift>Down
+  cycle_next = ""
   page_up_half = <Shift>Up
-[layouts]
-  [[default]]
-    [[[child1]]]
-      parent = window0
-      profile = default
-      type = Terminal
-    [[[window0]]]
-      parent = ""
-      type = Window
-[plugins]
+  page_down_half = <Shift>Down
+  hide_window = ""
+  group_tab = ""
+  group_tab_toggle = <Super>t
+  ungroup_tab = ""
+  broadcast_off = <Primary><Alt>o
+  layout_launcher = ""
+  help = <Alt>F1
 [profiles]
   [[default]]
     background_color = "#212121"
     cursor_color = "#d0d0d0"
+    font = Consolas ligaturized v2 13
     foreground_color = "#d0d0d0"
-    palette = "#151515:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#d0d0d0:#505050:#ac4142:#7e8e50:#e5b567:#6c99bb:#9f4e85:#7dd6cf:#f5f5f5"
     scrollback_lines = 100000
+    palette = "#151515:#ac4142:#7e8d50:#e5b566:#6c99ba:#9e4e85:#7dd5cf:#d0d0d0:#505050:#ac4142:#7e8d50:#e5b566:#6c99ba:#9e4e85:#7dd5cf:#f5f5f5"
     word_chars = "-,./?%&#:_=@+~"
+    use_system_font = False
   [[Afterglow]]
     background_color = "#212121"
     cursor_color = "#d0d0d0"
@@ -95,8 +90,8 @@
     background_color = "#181818"
     cursor_color = "#aaaaaa"
     foreground_color = "#d3d7cf"
-    palette = "#282a2d:#a54242:#6e9440:#de935f:#5f819d:#85678f:#5e8d87:#b0b0b0:#373b41:#cc6666:#b5bd68:#f0c674:#7291ac:#b294bb:#8abeb7:#cccccc"
     scrollback_lines = 50000
+    palette = "#282a2d:#a54242:#6e9440:#de935f:#5f819d:#85678f:#5e8d87:#b0b0b0:#373b41:#cc6666:#b5bd68:#f0c674:#7291ac:#b294bb:#8abeb7:#cccccc"
     word_chars = "-,./?%&#:_=@+~"
   [[OneHalfDark]]
     background_color = "#282c34"
@@ -122,3 +117,13 @@
     cursor_color = "#d0d0d0"
     foreground_color = "#cdcdcd"
     palette = "#000000:#d70005:#1cd915:#d9bd26:#5665ff:#b052da:#50d2da:#e0e0e0:#535353:#fb0007:#22ff18:#fedc2b:#9fa9ff:#e09aff:#8df9ff:#ffffff"
+[layouts]
+  [[default]]
+    [[[child1]]]
+      parent = window0
+      profile = default
+      type = Terminal
+    [[[window0]]]
+      parent = ""
+      type = Window
+[plugins]
