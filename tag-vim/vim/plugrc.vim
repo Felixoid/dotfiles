@@ -1,5 +1,5 @@
-" jf{yi}@"    Type to apply a sorting
-""   {j"qyi`@q}
+" Type to apply a sorting: 2Gyi}@"
+"" {j"qyi`@q}
 " after an adding of new string do `:/\splug#begin/+1,/plug#end/-1 sort /\//`
 let s:py3 = has('python3')
 let s:py2 = has('python')
@@ -9,7 +9,7 @@ let s:py  = s:py2 || s:py3
 " This condition is goten from vim-gutentags:17
 let s:guttentags_reqs = has('job') || (has('nvim') && exists('*jobwait'))
 
-" w0rp/ale requirements
+" dense-analysis/ale requirements
 let s:ale_reqs = ( has('timers') && has('nvim-0.2.0') ) ||
   \ ( has('timers') && exists('*job_start') && exists('*ch_close_in') )
 
@@ -18,9 +18,9 @@ let s:ale_reqs = ( has('timers') && has('nvim-0.2.0') ) ||
 silent! call plug#begin()
 Plug 'vim-scripts/Conque-GDB', { 'on': ['ConqueTerm', 'ConqueTermTab'] }
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
-Plug 'tmhedberg/SimpylFold'
+Plug 'tmhedberg/SimpylFold' " depends on Konfekt/FastFold
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer' }
+Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer --ts-completer' }
 if s:ale_reqs | Plug 'dense-analysis/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/context.vim'
