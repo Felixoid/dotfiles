@@ -9,6 +9,7 @@
   title_font = Consolas ligaturized v2 12
 [keybindings]
   cycle_next = ""
+  close_term = <Super>w
   page_up_half = <Shift>Up
   page_down_half = <Shift>Down
   hide_window = ""
