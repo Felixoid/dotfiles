@@ -84,23 +84,35 @@ if [ -r "$HOME/.config/workrc/" ] \
   done
 fi
 
+###############
+# Git helpers #
+###############
+# get the relative git root for the PWD
+relative_git_root() {
+  local top
+  if ! top="$(git rev-parse --show-cdup)"; then
+    printf '%s' './'
+    return
+  fi
+  top="${top:-./}"
+  local super_root; super_root="$(git rev-parse --show-superproject-working-tree)"
+  if [[ "$super_root" ]]; then
+    printf '%s' "$top../"
+    ( cd "$top../" && _cg || return )
+  fi
+  printf '%s' "$top"
+}
+
+gr() {
+  readlink -f "$(relative_git_root)"
+}
+
 # cd to the root of the current git directory
 # If $PWD is submodule, will cd to the root of the top ancestor
 # It requires to stay in the current directory, if the root is . or unknown,
 # and use cd only once, to have a way to do `cd -`
 cg() {
-  _cg() {
-    local top; top="$(git rev-parse --show-cdup)"
-    top="${top:-./}"
-    local super_root; super_root="$(git rev-parse --show-superproject-working-tree)"
-    if [[ "$super_root" ]]; then
-      printf '%s' "$top../"
-      ( cd "$top../" && _cg || return )
-    fi
-    printf '%s' "$top"
-  }
-  local git_root
-  git_root="$(_cg)"
+  git_root="$(relative_git_root)"
   [[ "x${git_root}" != "x./" ]] && cd "${git_root}" && return || return 0
 }
 
