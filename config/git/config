@@ -22,6 +22,8 @@
 	path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/"]
 	path = ~/.config/git/git-personal
+[includeIf "gitdir:~/Space/Felixoid/github/ClickHouse*/"]
+	path = ~/.config/git/git-clickhouse
 [includeIf "gitdir:~/.cache/yay/"]
 	path = ~/.config/git/git-personal
 [includeIf "gitdir:/tmp"]
