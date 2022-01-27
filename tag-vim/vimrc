@@ -152,7 +152,7 @@ autocmd FileType gitrebase let g:nerdtree_tabs_open_on_console_startup = 0
 
 " pymode
 let g:pymode_rope = 0 " using YouCompleteMe instead of rope
-let g:pymode_lint = 1
+let g:pymode_lint = 0
 if has('python3') && executable('python3')
   let g:pymode_python = 'python3'
 elseif has('python') && executable('python')
@@ -196,6 +196,7 @@ endif
 " CtrlP
 noremap      :CtrlPTag<cr>
 nnoremap <c-]> :CtrlPtjump<cr>
+let g:ctrlp_max_files = 30000
 
 " puppet
 " see ~/.vim/after/plugin/puppet-tabular.vim
@@ -221,6 +222,8 @@ let g:ale_fixers = {
       \ 'python': ['black'],
       \}
 let g:ale_fix_on_save = 1
+let g:ale_cursor_detail = 1
+set previewheight=6
 
 " YouCompleteMe
 " Pop up the hover in 1.5 secs
