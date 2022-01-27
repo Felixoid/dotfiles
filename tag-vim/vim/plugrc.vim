@@ -25,7 +25,7 @@ if s:ale_reqs | Plug 'dense-analysis/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/context.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-if s:py | Plug 'davidhalter/jedi-vim' | endif
+"if s:py | Plug 'davidhalter/jedi-vim' | endif " it's covered by YCM and breaks buffer
 Plug 'nanotech/jellybeans.vim'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
