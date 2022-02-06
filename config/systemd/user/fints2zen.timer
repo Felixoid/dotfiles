@@ -1,0 +1,9 @@
+[Unit]
+Description=Job to sync transactions from FinTS to ZenMoney
+
+[Timer]
+OnCalendar=19:00 UTC
+Persistent=true
+
+[Install]
+WantedBy=default.target

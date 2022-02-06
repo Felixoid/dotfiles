@@ -1,0 +1,16 @@
+[Unit]
+Description=Job to sync transactions from FinTS to ZenMoney
+Wants=fints-logs-send.service network-online.target
+Before=fints-logs-send.service
+After=network-online.target
+
+[Service]
+Type=oneshot
+# Wait for network and dns available
+ExecStartPre=/bin/bash -c 'while ! /usr/bin/curl -s https://api.zenmoney.ru/v8 > /dev/null; do sleep 5; done'
+ExecStartPre=/bin/rm -f %h/.cache/fints2zen-out.log
+ExecStart=/usr/bin/python3 %h/Space/Felixoid/github/Felixoid/fints2zen/fints2zen.py
+StandardOutput=file:%h/.cache/fints2zen-out.log
+
+[Install]
+WantedBy=default.target

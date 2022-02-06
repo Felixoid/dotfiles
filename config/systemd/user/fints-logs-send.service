@@ -1,0 +1,11 @@
+[Unit]
+Description=Job to send transactions log to telegram
+Requires=fints2zen.service
+After=fints2zen.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/telegram-cli -We 'send_file ZenMoney-sync %h/.cache/fints2zen-out.log'
+
+[Install]
+WantedBy=default.target
