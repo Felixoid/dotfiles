@@ -1,5 +1,7 @@
 {
 	"aururl": "https://aur.archlinux.org",
+	"buildDir": "/home/felixoid/.cache/yay",
+	"absdir": "/home/felixoid/.cache/yay/abs",
 	"editor": "",
 	"editorflags": "",
 	"makepkgbin": "makepkg",
