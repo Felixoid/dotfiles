@@ -1,7 +1,8 @@
 [user]
 	email = mr.felixoid@gmail.com
 	name = Mikhail f. Shiryaev
-	signingkey = mr.felixoid@gmail.com
+[tag]
+	gpgSign = true
 [merge]
 	tool = vimdiff
 [diff]
@@ -23,6 +24,8 @@
 [includeIf "gitdir:~/Space/Felixoid/"]
 	path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/github/ClickHouse*/"]
+	path = ~/.config/git/git-clickhouse
+[includeIf "gitdir:~/Space/Felixoid/github/google/"]
 	path = ~/.config/git/git-clickhouse
 [includeIf "gitdir:~/.cache/yay/"]
 	path = ~/.config/git/git-personal
