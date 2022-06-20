@@ -3,6 +3,7 @@ Description=Job to sync transactions from FinTS to ZenMoney
 
 [Timer]
 OnCalendar=19:00 UTC
+RandomizedDelaySec=3600
 Persistent=true
 
 [Install]
