@@ -88,7 +88,7 @@ fi
 # Git helpers #
 ###############
 # get the relative git root for the PWD
-relative_git_root() {
+rgr() {
   local top
   if ! top="$(git rev-parse --show-cdup)"; then
     printf '%s' './'
@@ -104,7 +104,7 @@ relative_git_root() {
 }
 
 gr() {
-  readlink -f "$(relative_git_root)"
+  readlink -f "$(rgr)"
 }
 
 # cd to the root of the current git directory
@@ -112,7 +112,7 @@ gr() {
 # It requires to stay in the current directory, if the root is . or unknown,
 # and use cd only once, to have a way to do `cd -`
 cg() {
-  git_root="$(relative_git_root)"
+  git_root="$(rgr)"
   [[ "x${git_root}" != "x./" ]] && cd "${git_root}" && return || return 0
 }
 

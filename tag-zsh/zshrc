@@ -95,6 +95,7 @@ bindkey -M viins '\e.' insert-last-word
 bindkey "^W" backward-kill-word
 bindkey '^K' unlock-rsa
 bindkey '^G' _git_prompt_cache_switch
+bindkey '^X?' _complete_debug
 bindkey "^[[A" history-beginning-search-backward
 bindkey "^[OA" history-beginning-search-backward
 bindkey "^[[B" history-beginning-search-forward
