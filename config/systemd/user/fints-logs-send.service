@@ -5,7 +5,7 @@ After=fints2zen.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/telegram-cli -We 'send_file ZenMoney-sync %h/.cache/fints2zen-out.log'
+ExecStart=/usr/bin/telegram-send -f '%h/.cache/fints2zen-out.log'
 
 [Install]
 WantedBy=default.target
