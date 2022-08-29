@@ -2,6 +2,7 @@
   focus = system
   inactive_color_offset = 0.75
   enabled_plugins = LaunchpadCodeURLHandler, APTURLHandler, LaunchpadBugURLHandler
+  case_sensitive = False
 [keybindings]
   cycle_next = ""
   close_term = <Super>w
