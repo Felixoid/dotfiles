@@ -30,6 +30,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
+Plug 'petobens/poet-v'
 if s:py | Plug 'python-mode/python-mode', { 'branch': 'develop' } | endif
 Plug 'luochen1990/rainbow'
 Plug 'saltstack/salt-vim'
