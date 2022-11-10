@@ -6,6 +6,7 @@ zstyle :compinstall filename "${HOME}/.zshrc"
 zstyle ':completion:*' completer _complete _ignored _approximate
 zstyle ':completion:*' max-errors 1
 zstyle ':completion:*' menu select
+zstyle ':completion:*:hosts' menu select yes=long interactive=long
 
 # I don't want to see error `zsh: no matches found: remote.host:file.*` on `rsync` invoking
 unsetopt NOMATCH
@@ -31,6 +32,7 @@ function prompt_char {
     echo 'ѳ'
 }
 
+# git prompt
 if [ -r ~/.config/zsh/git-prompt.zsh ]; then
   source ~/.config/zsh/git-prompt.zsh
   ZSH_GIT_PROMPT_SHOW_STASH=true
@@ -69,14 +71,6 @@ function prompt_setup() {
 }
 prompt_setup
 
-#################### Prompting end ####################
-
-# Global cross-shells
-[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
-
-# Unlock ssh rsa keys, defined in ${HOME}/.config/shells/rc
-zle -N unlock-rsa
-
 # Switcher for git prompt cache
 _git_prompt_cache_switch() {
   if [ -z ${ZSH_THEME_GIT_PROMPT_CACHE} ]; then
@@ -86,6 +80,11 @@ _git_prompt_cache_switch() {
   fi
 }
 zle -N _git_prompt_cache_switch
+
+#################### Prompting end ####################
+
+# Global cross-shells
+[ -f ${HOME}/.config/shells/rc ] && . ${HOME}/.config/shells/rc
 
 autoload -Uz compinit
 compinit
