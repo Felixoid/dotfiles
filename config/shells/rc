@@ -97,8 +97,8 @@ rgr() {
   top="${top:-./}"
   local super_root; super_root="$(git rev-parse --show-superproject-working-tree)"
   if [[ "$super_root" ]]; then
-    printf '%s' "$top../"
-    ( cd "$top../" && _cg || return )
+    printf '%s' "$top"
+    ( cd "$top../" && rgr || return )
   fi
   printf '%s' "$top"
 }
