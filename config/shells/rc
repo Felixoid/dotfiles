@@ -130,16 +130,11 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=0
 # less pipe
 export LESS_ADVANCED_PREPROCESSOR=1
 
-# keychain, only if SSH_* undefined
-if [ -x /usr/bin/keychain ] && [ ! -S "${SSH_AUTH_SOCK:-/x}" ]; then
-  # I want to avoid DNS requests, that's why `uname -n` is used
-  eval "$(/usr/bin/keychain --host "$(uname -n 2>/dev/null || echo unknown)" --eval --systemd --timeout 720 --inherit any-once -Q -q --agents gpg,ssh )"
+if [ -x /lib/systemd/user-environment-generators/30-systemd-environment-d-generator ]; then
+  set -a
+  eval "$(/lib/systemd/user-environment-generators/30-systemd-environment-d-generator)"
+  set +a
 fi
-unlock-rsa() {
-  if [ -x /usr/bin/keychain ]; then
-    /usr/bin/keychain --timeout 59 -q "${HOME}"/.ssh/*_rsa
-  fi
-}
 
 # I use keepassxc to manage ssh keys, so don't invoke unlock-rsa automatically
 #unlock-rsa
