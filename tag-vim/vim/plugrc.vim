@@ -20,7 +20,7 @@ Plug 'vim-scripts/Conque-GDB', { 'on': ['ConqueTerm', 'ConqueTermTab'] }
 Plug 'Konfekt/FastFold' " solve dramatical slowdown for pymode inserts inside long fold
 Plug 'tmhedberg/SimpylFold' " depends on Konfekt/FastFold
 Plug 'Glench/Vim-Jinja2-Syntax'
-Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer --ts-completer' }
+Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer --ts-completer --rust-completer' }
 if s:ale_reqs | Plug 'dense-analysis/ale' | endif
 Plug 'jiangmiao/auto-pairs'
 Plug 'wellle/context.vim'
