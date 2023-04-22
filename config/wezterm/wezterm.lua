@@ -16,7 +16,7 @@ config.font = wezterm.font_with_fallback {
 config.font_size = 13
 
 config.mouse_bindings = {
-  -- Scrolling up while holding CTRL increases the font size
+  -- Scrolling up while holding SHIFT scrolls by pages
   {
     event = { Down = { streak = 1, button = { WheelUp = 1 } } },
     mods = 'SHIFT',
