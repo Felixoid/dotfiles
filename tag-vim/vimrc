@@ -119,6 +119,9 @@ set nospell
 " tab if buffer isn't open
 set switchbuf+=usetab,newtab
 
+" CMAKE
+autocmd FileType cmake setlocal ts=4 sts=4 sw=4 expandtab
+
 " YaML
 autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
 
