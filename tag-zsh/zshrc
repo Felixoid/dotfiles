@@ -44,7 +44,7 @@ else
 fi
 
 function zle-line-init zle-keymap-select {
-    [ "${VIRTUAL_ENV}" ] && _PROMPT_VENV="%F{green}venv=($(basename $VIRTUAL_ENV))%f "
+    [ "${VIRTUAL_ENV}" ] && _PROMPT_VENV="%F{green}venv=($(basename $VIRTUAL_ENV))%f " || unset _PROMPT_VENV
     case $KEYMAP in
       viins|main) _PROMPT_VI="%F{2}%(!.#.>)$(prompt_char)>%f" ;;
       vicmd)      _PROMPT_VI="%F{3}<$(prompt_char)%(!.#.<)%f" ;;
