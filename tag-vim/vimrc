@@ -21,6 +21,7 @@ set cursorline
 set hlsearch
 " <c-/> for switch highlight
 nnoremap  :nohlsearch <CR>
+nnoremap <c-/> :nohlsearch <CR>
 filetype plugin on
 syntax on
 set number
