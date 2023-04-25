@@ -27,6 +27,27 @@ config.mouse_bindings = {
     mods = 'SHIFT',
     action = act.ScrollByPage(1),
   },
+  -- Do not open links on a simple click
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    action = act.CompleteSelection "ClipboardAndPrimarySelection",
+  },
+  -- Use CTRL+LClick to select the block
+  {
+    event = { Down = { streak = 1, button = "Left" } },
+    mods = 'CTRL',
+    action = act.SelectTextAtMouseCursor "Block",
+  },
+  {
+    event = { Drag = { streak = 1, button = "Left" } },
+    mods = 'CTRL',
+    action = act.ExtendSelectionToMouseCursor "Block",
+  },
+  {
+    event = { Up = { streak = 1, button = "Left" } },
+    mods = 'CTRL',
+    action = act.CompleteSelectionOrOpenLinkAtMouseCursor "ClipboardAndPrimarySelection",
+  },
 }
 
 
