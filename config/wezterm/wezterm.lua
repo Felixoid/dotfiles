@@ -3,6 +3,9 @@ local act = wezterm.action
 
 local config = {}
 
+-- don't check for updates
+config.check_for_updates = false
+
 config.color_scheme = 'Tomorrow Night Eighties'
 
 config.text_background_opacity = 0.8
@@ -14,6 +17,9 @@ config.font = wezterm.font_with_fallback {
 }
 
 config.font_size = 13
+config.scrollback_lines = 100000
+
+config.selection_word_boundary = " \t\n{}[]()'`|" .. '"'
 
 config.mouse_bindings = {
   -- Scrolling up while holding SHIFT scrolls by pages
