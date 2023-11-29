@@ -5,6 +5,7 @@
 	gpgSign = true
 [merge]
 	tool = vimdiff
+	conflictStyle = diff3
 [diff]
 	tool = vimdiff
 [push]
