@@ -14,6 +14,8 @@ config.text_background_opacity = 0.8
 config.font = wezterm.font_with_fallback {
   'Consolas ligaturized v2',
   'Code2000',
+  'Symbols Nerd Font Mono',
+  'Noto Color Emoji',
 }
 
 config.font_size = 13
@@ -56,5 +58,17 @@ config.mouse_bindings = {
   },
 }
 
+config.keys = {
+  {
+    key = "r",
+    mods = 'CTRL|SHIFT',
+    action = act.RotatePanes 'CounterClockwise',
+  },
+  {
+    key = "r",
+    mods = 'CTRL|SHIFT|ALT',
+    action = act.RotatePanes 'Clockwise',
+  },
+}
 
 return config
