@@ -10,9 +10,10 @@
   page_down_half = <Shift>Down
   hide_window = ""
   group_tab = ""
-  group_tab_toggle = <Super>t
+  group_tab_toggle = <Primary><Super>t
   ungroup_tab = ""
   broadcast_off = <Primary><Alt>o
+  broadcast_group = <Primary><Super>g
   layout_launcher = ""
   help = <Alt>F1
 [profiles]
