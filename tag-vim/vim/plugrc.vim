@@ -13,6 +13,8 @@ let s:guttentags_reqs = has('job') || (has('nvim') && exists('*jobwait'))
 let s:ale_reqs = ( has('timers') && has('nvim-0.2.0') ) ||
   \ ( has('timers') && exists('*job_start') && exists('*ch_close_in') )
 
+let s:poetry = executable('poetry')
+
 
 " to suppress an error on hosts w/o `git`
 silent! call plug#begin()
@@ -30,7 +32,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
-Plug 'petobens/poet-v'
+if s:poetry | Plug 'petobens/poet-v' | endif
 if s:py | Plug 'python-mode/python-mode', { 'branch': 'develop' } | endif
 Plug 'luochen1990/rainbow'
 Plug 'saltstack/salt-vim'

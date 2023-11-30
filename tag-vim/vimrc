@@ -157,6 +157,7 @@ autocmd FileType gitrebase let g:nerdtree_tabs_open_on_console_startup = 0
 " pymode
 let g:pymode_rope = 0 " using YouCompleteMe instead of rope
 let g:pymode_lint = 0
+let g:pymode_options_max_line_length = 88
 if has('python3') && executable('python3')
   let g:pymode_python = 'python3'
 elseif has('python') && executable('python')
@@ -223,8 +224,9 @@ let g:ale_linters = {
       \ 'go': ['gometalinter', 'gofmt', 'golint', 'go vet', 'go build']
       \}
 let g:ale_fixers = {
-      \ 'python': ['black'],
+      \ 'python': ['black', 'isort'],
       \}
+let g:ale_python_isort_options = '--profile black'
 let g:ale_fix_on_save = 1
 let g:ale_cursor_detail = 1
 set previewheight=6
