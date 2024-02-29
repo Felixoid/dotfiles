@@ -12,6 +12,7 @@
   default = simple
 [pull]
   rebase = true
+  autostash = true
 [fetch]
   recurseSubmodules = false
 [core]
@@ -36,3 +37,6 @@
   path = ~/.config/git/git-personal
 [includeIf "gitdir:/tmp"]
   path = ~/.config/git/git-personal
+[alias]
+  cnb = "!git checkout --no-track -B \"$1\" origin/HEAD #"
+  ria = "rebase origin/HEAD -i --autosquash"
