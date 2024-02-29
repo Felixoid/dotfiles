@@ -1,34 +1,38 @@
 [user]
-	email = mr.felixoid@gmail.com
-	name = Mikhail f. Shiryaev
+  email = mr.felixoid@gmail.com
+  name = Mikhail f. Shiryaev
 [tag]
-	gpgSign = true
+  gpgSign = true
 [merge]
-	tool = vimdiff
-	conflictStyle = diff3
+  tool = vimdiff
+  conflictStyle = diff3
 [diff]
-	tool = vimdiff
+  tool = vimdiff
 [push]
-	default = simple
+  default = simple
 [pull]
-	rebase = true
+  rebase = true
+[fetch]
+  recurseSubmodules = false
 [core]
-	excludesfile = ~/.config/git/gitignore
+  excludesfile = ~/.config/git/gitignore
+  untrackedCache = true
+  fsmonitor = true
 [filter "lfs"]
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	required = true
+  clean = git-lfs clean -- %f
+  smudge = git-lfs smudge -- %f
+  required = true
 [includeIf "gitdir:~/Space/LM/"]
-	path = ~/Space/LM/.gitconfig
+  path = ~/Space/LM/.gitconfig
 [includeIf "gitdir:~/OPT/Felixoid/"]
-	path = ~/.config/git/git-personal
+  path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/"]
-	path = ~/.config/git/git-personal
+  path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/github/ClickHouse*/"]
-	path = ~/.config/git/git-clickhouse
+  path = ~/.config/git/git-clickhouse
 [includeIf "gitdir:~/Space/Felixoid/github/google/"]
-	path = ~/.config/git/git-clickhouse
+  path = ~/.config/git/git-clickhouse
 [includeIf "gitdir:~/.cache/yay/"]
-	path = ~/.config/git/git-personal
+  path = ~/.config/git/git-personal
 [includeIf "gitdir:/tmp"]
-	path = ~/.config/git/git-personal
+  path = ~/.config/git/git-personal
