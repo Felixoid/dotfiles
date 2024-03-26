@@ -12,6 +12,7 @@ config.text_background_opacity = 0.8
 
 
 config.font = wezterm.font_with_fallback {
+  'Consolas ligaturized v3',
   'Consolas ligaturized v2',
   'Code2000',
   'Symbols Nerd Font Mono',
