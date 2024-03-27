@@ -1,11 +1,11 @@
 [Unit]
 Description=Job to send transactions log to telegram
-Requires=fints2zen.service
+Wants=fints2zen.service
 After=fints2zen.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/telegram-send -f '%h/.cache/fints2zen-out.log'
+ExecStart=bash -c '/usr/bin/telegram-send "$(systemctl --user status fints2zen.service | grep PID:)" -f "%h/.cache/fints2zen-out.log"'
 
 [Install]
 WantedBy=default.target
