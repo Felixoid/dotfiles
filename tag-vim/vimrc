@@ -225,8 +225,11 @@ let g:ale_linters = {
       \}
 let g:ale_fixers = {
       \ 'python': ['black', 'isort'],
+      \ 'terraform': ['terraform'],
       \}
 let g:ale_python_isort_options = '--profile black'
+let g:ale_terraform_fmt_executable = 'tofu'
+let g:ale_terraform_terraform_executable = 'tofu'
 let g:ale_fix_on_save = 1
 let g:ale_cursor_detail = 1
 set previewheight=6
@@ -242,6 +245,14 @@ let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
+
+let g:ycm_language_server = [
+      \ {
+      \   'name': 'terraform',
+      \   'filetypes': ['terraform'],
+      \   'cmdline': ['terraform-ls', 'serve']
+      \ }
+\]
 
 " UtilSnippet
 " I would like to ignore ultisnips launch worning
