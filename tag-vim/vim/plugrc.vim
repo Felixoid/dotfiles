@@ -24,7 +24,7 @@ Plug 'tmhedberg/SimpylFold' " depends on Konfekt/FastFold
 Plug 'Glench/Vim-Jinja2-Syntax'
 Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive && GOFLAGS=-modcacherw ./install.py --clangd-completer --go-completer --ts-completer --rust-completer' }
 if s:ale_reqs | Plug 'dense-analysis/ale' | endif
-Plug 'jiangmiao/auto-pairs'
+Plug 'jiangmiao/auto-pairs', { 'for': [] } " load this for everything but tab file types
 Plug 'wellle/context.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 "if s:py | Plug 'davidhalter/jedi-vim' | endif " it's covered by YCM and breaks buffer
@@ -66,6 +66,7 @@ Plug 'vim-ruby/vim-ruby'
 Plug 'honza/vim-snippets'
 if s:py | Plug 'brianrodri/vim-sort-folds' | endif
 Plug 'tpope/vim-surround'
+Plug 'kanderoo/vim-tabs', { 'for': 'tab' }
 Plug 'tpope/vim-unimpaired'
 Plug 'lervag/vimtex'
 call plug#end()
@@ -80,6 +81,10 @@ if !isdirectory(g:plug_home . '/YouCompleteMe')
     set completeopt-=longest
   end
 end
+
+augroup plug_xtype
+    autocmd FileType * if expand('<amatch>') != 'tab' | call plug#load('auto-pairs') | call AutoPairsTryInit() | endif
+augroup END
 
 " Load syntastic if couldn't load ale
 if !s:ale_reqs
