@@ -68,6 +68,7 @@ if s:py | Plug 'brianrodri/vim-sort-folds' | endif
 Plug 'tpope/vim-surround'
 Plug 'kanderoo/vim-tabs', { 'for': 'tab' }
 Plug 'tpope/vim-unimpaired'
+Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'lervag/vimtex'
 call plug#end()
 
