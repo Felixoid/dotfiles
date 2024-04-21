@@ -4,6 +4,8 @@ alias sp='ssh-add -e /usr/lib/libykcs11.so; ssh-add -s /usr/lib/libykcs11.so'
 
 alias hssh='ssh -NL 10022:localhost:10022 -L 11022:localhost:11022 -L 5432:localhost:5432 -D3333 felixoid.com'
 
+which dstat 1>/dev/null 2>&1 || alias dstat=dool
+
 #gnupg.vim
 GPG_TTY="$(tty)"
 export GPG_TTY
