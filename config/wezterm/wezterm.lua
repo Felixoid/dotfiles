@@ -6,6 +6,26 @@ local config = {}
 -- don't check for updates
 config.check_for_updates = false
 
+config.automatically_reload_config = true
+
+-- cursor
+
+local xcursor_size = nil
+local xcursor_theme = nil
+
+local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-theme"})
+if success then
+  xcursor_theme = stdout:gsub("'(.+)'\n", "%1")
+end
+
+local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-size"})
+if success then
+  xcursor_size = tonumber(stdout)
+end
+
+config.xcursor_theme = xcursor_theme
+config.xcursor_size = xcursor_size
+
 config.color_scheme = 'Tomorrow Night Eighties'
 
 config.text_background_opacity = 0.8
