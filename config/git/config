@@ -41,5 +41,5 @@
   path = ~/.config/git/git-personal
 [alias]
   # the final '#' is important to ignore the remaining positional arguments
-  cnb = "!git checkout --no-track -B \"$1\" origin/HEAD #"
-  ria = "rebase origin/HEAD -i --autosquash"
+  cnb = "!git checkout --no-track -B \"$1\" \"${2:-origin/HEAD}\" #"
+  ria = "!git rebase \"${1:-origin/HEAD}\" -i --autosquash #"
