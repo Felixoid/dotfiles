@@ -28,6 +28,8 @@ config.xcursor_size = xcursor_size
 
 config.color_scheme = 'Tomorrow Night Eighties'
 
+-- The fonts and text
+
 config.text_background_opacity = 0.8
 
 
@@ -40,6 +42,7 @@ config.font = wezterm.font_with_fallback {
 }
 
 config.font_size = 13
+
 config.scrollback_lines = 100000
 
 config.selection_word_boundary = " \t\n{}[]()'`|" .. '"'
@@ -89,6 +92,51 @@ config.keys = {
     key = "r",
     mods = 'CTRL|SHIFT|ALT',
     action = act.RotatePanes 'Clockwise',
+  },
+}
+
+-- Overwrite the hyperlink_rules to address markdown issue
+-- see https://github.com/wez/wezterm/issues/3803
+-- https://github.com/wez/wezterm/pull/4212
+config.hyperlink_rules = {
+  -- Matches: a URL in parens: (URL)
+  {
+    regex = '\\((\\w+://\\S+)\\)',
+    format = '$1',
+    highlight = 1,
+  },
+  -- Matches: a URL in brackets: [URL]
+  {
+    regex = '\\[(\\w+://\\S+)\\]',
+    format = '$1',
+    highlight = 1,
+  },
+  -- Matches: a URL in curly braces: {URL}
+  {
+    regex = '\\{(\\w+://\\S+)\\}',
+    format = '$1',
+    highlight = 1,
+  },
+  -- Matches: a URL in angle brackets: <URL>
+  {
+    regex = '<(\\w+://\\S+)>',
+    format = '$1',
+    highlight = 1,
+  },
+  -- Then handle URLs not wrapped in brackets
+  {
+    -- Before
+    --regex = '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
+    --format = '$0',
+    -- After
+    regex = '[^(]\\b(\\w+://\\S+[)/a-zA-Z0-9-]+)',
+    format = '$1',
+    highlight = 1,
+  },
+  -- implicit mailto link
+  {
+    regex = '\\b\\w+@[\\w-]+(\\.[\\w-]+)+\\b',
+    format = 'mailto:$0',
   },
 }
 
