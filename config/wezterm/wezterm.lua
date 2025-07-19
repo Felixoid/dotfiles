@@ -47,6 +47,13 @@ config.scrollback_lines = 100000
 
 config.selection_word_boundary = " \t\n{}[]()'`|" .. '"'
 
+config.quick_select_patterns = {
+  -- Match words that start with a letter or underscore, followed by any number of letters, digits, or underscores
+  --"(?<=[^-A-z0-9])[-A-z0-9]+"
+  "[-_:.A-Za-z0-9]+",
+  -- Match words that start with a digit, followed by any number of digits
+}
+
 config.mouse_bindings = {
   -- Scrolling up while holding SHIFT scrolls by pages
   {
