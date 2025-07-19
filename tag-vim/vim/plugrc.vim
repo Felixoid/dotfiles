@@ -26,15 +26,17 @@ Plug 'ycm-core/YouCompleteMe', { 'do': 'git submodule update --init --recursive 
 if s:ale_reqs | Plug 'dense-analysis/ale' | endif
 Plug 'jiangmiao/auto-pairs', { 'for': [] } " load this for everything but tab file types
 Plug 'wellle/context.vim'
+Plug 'DanBradbury/copilot-chat.vim'
+Plug 'github/copilot.vim'
 Plug 'ctrlpvim/ctrlp.vim'
-"if s:py | Plug 'davidhalter/jedi-vim' | endif " it's covered by YCM and breaks buffer
 Plug 'nanotech/jellybeans.vim'
 Plug 'iamcco/markdown-preview.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
 if s:poetry | Plug 'petobens/poet-v' | endif
 if s:py | Plug 'python-mode/python-mode', { 'branch': 'develop' } | endif
-Plug 'luochen1990/rainbow'
+" Plug 'luochen1990/rainbow'
+Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'saltstack/salt-vim'
 Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticReset' }
 Plug 'godlygeek/tabular'
