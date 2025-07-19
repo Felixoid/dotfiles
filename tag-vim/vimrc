@@ -140,6 +140,7 @@ let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l/%L%
 
 " Auto-pair
 let g:AutoPairsShortcutJump='<S-Tab>'
+au Filetype rust let b:AutoPairs = {"<": ">"}
 
 " Rainbow
 let g:rainbow_active = 1
@@ -226,6 +227,7 @@ let g:ale_linters = {
 let g:ale_fixers = {
       \ 'python': ['black', 'isort'],
       \ 'terraform': ['terraform'],
+      \ 'rust': ['rustfmt'],
       \}
 let g:ale_python_isort_options = '--profile black'
 let g:ale_terraform_fmt_executable = 'tofu'
