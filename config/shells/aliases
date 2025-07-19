@@ -16,3 +16,6 @@ alias git="LC_ALL=en_US.UTF-8 git"
 # pdsh alias for use stdin
 alias psh='pdsh -w^- '
 
+gmeet() {
+  chromium --app="$1" --noerrdialogs --disable-translate --no-first-run --fast --fast-start --disable-infobars --class="meet" --user-data-dir="$HOME/.cache/meet-data"
+}
