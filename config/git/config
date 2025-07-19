@@ -21,12 +21,13 @@
   excludesfile = ~/.config/git/gitignore
   untrackedCache = true
   fsmonitor = true
+  preloadIndex = true
 [filter "lfs"]
   clean = git-lfs clean -- %f
   smudge = git-lfs smudge -- %f
   required = true
-[includeIf "gitdir:~/Space/LM/"]
-  path = ~/Space/LM/.gitconfig
+[rerere]
+  enabled = true
 [includeIf "gitdir:~/OPT/Felixoid/"]
   path = ~/.config/git/git-personal
 [includeIf "gitdir:~/Space/Felixoid/"]
@@ -39,7 +40,11 @@
   path = ~/.config/git/git-personal
 [includeIf "gitdir:/tmp"]
   path = ~/.config/git/git-personal
+[url "ssh://git@github.com"]
+	insteadOf = https://github.com
 [alias]
   # the final '#' is important to ignore the remaining positional arguments
-  cnb = "!git checkout --no-track -B \"$1\" \"${2:-origin/HEAD}\" #"
-  ria = "!git rebase \"${1:-origin/HEAD}\" -i --autosquash #"
+  cnb = "!git checkout --no-track -B \"$1\" \"${2:-origin/HEAD}\" ${@:3} #"
+  ria = "!git rebase \"${1:-origin/HEAD}\" -i --autosquash ${@:2} #"
+  pf = push --force-with-lease
+  st = status --ignore-submodules=dirty
