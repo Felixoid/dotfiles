@@ -43,6 +43,13 @@ else
   }
 fi
 
+# command line time
+if [ -r ~/.config/zsh/command-time.plugin.zsh ]; then
+  source ~/.config/zsh/command-time.plugin.zsh
+  typeset -F SECONDS
+  ZSH_COMMAND_TIME_MIN_SECONDS=0
+fi
+
 function zle-line-init zle-keymap-select {
     [ "${VIRTUAL_ENV}" ] && _PROMPT_VENV="%F{green}venv=($(basename $VIRTUAL_ENV))%f " || unset _PROMPT_VENV
     case $KEYMAP in
