@@ -22,6 +22,7 @@ try
 catch /Cannot find color scheme/
   silent echo ''
 endtry
+
 set list
 set listchars=tab:\|-,trail:~
 set cursorline
@@ -173,6 +174,9 @@ elseif has('python') && executable('python')
 endif
 au FileType python setlocal wrap
 
+" python syntax
+let g:python_highlight_all = 1
+
 " jedi-vim
 let g:jedi#use_tabs_not_buffers = 1 " open every goto in tabs
 
@@ -218,6 +222,12 @@ au FileType puppet set ts=4
 au FileType puppet set sw=4
 au FileType puppet set sts=4
 
+" C++
+au FileType cpp set expandtab
+au FileType cpp set ts=4
+au FileType cpp set sw=4
+au FileType cpp set sts=4
+
 " syntastic
 let g:syntastic_check_on_open = 1
 
@@ -252,7 +262,7 @@ let g:ycm_key_list_select_completion = []
 let g:ycm_key_list_previous_completion = []
 let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_clangd_uses_ycmd_caching = 0
-let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index']
+let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index', '-header-insertion=never']
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
 
 let g:ycm_language_server = [
