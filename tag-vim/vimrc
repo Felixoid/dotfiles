@@ -7,6 +7,13 @@ endif
 if has('gui_running')
   lcd %:p:h
   set guifont=Consolas\ ligaturized\ v3\ 13
+  set belloff=all
+else
+  try
+    set termguicolors
+  catch
+    silent echo ''
+  endtry
 endif
 
 " theming
