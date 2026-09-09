@@ -13,3 +13,11 @@ This file is created via:
 The easiest way to use is:
 
 `curl https://github.com/Felixoid/dotfiles/archive/master.tar.gz -L | tar xz && cd dotfiles-master && bash standalone_rcup.sh && cd -`
+
+### Double `origin` for duplicated push
+
+```
+[remote "origin"]
+	url = git@gitlab.com:Felixoid/dotfiles.git
+	url = git@github.com:Felixoid/dotfiles.git
+```
