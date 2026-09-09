@@ -1,12 +1,16 @@
 local wezterm = require 'wezterm'
 local act = wezterm.action
+require 'pi-tab-title'
 
-local config = {}
+local config = wezterm.config_builder()
 
 -- don't check for updates
 config.check_for_updates = false
 
 config.automatically_reload_config = true
+
+-- support kitty keyboard protocol, breaks pi instead of working
+config.enable_kitty_keyboard = true
 
 -- cursor
 
@@ -50,11 +54,24 @@ config.selection_word_boundary = " \t\n{}[]()'`|" .. '"'
 config.quick_select_patterns = {
   -- Match words that start with a letter or underscore, followed by any number of letters, digits, or underscores
   --"(?<=[^-A-z0-9])[-A-z0-9]+"
-  "[-_:.A-Za-z0-9]+",
+  "[-_:.A-Za-z0-9/]+",
   -- Match words that start with a digit, followed by any number of digits
 }
 
 config.mouse_bindings = {
+  -- Scrolling with the mouse wheel
+  {
+    event = { Down = { streak = 1, button = { WheelUp = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByPage(-0.2),
+    alt_screen = false,
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelDown = 1 } } },
+    mods = 'NONE',
+    action = act.ScrollByPage(0.2),
+    alt_screen = false,
+  },
   -- Scrolling up while holding SHIFT scrolls by pages
   {
     event = { Down = { streak = 1, button = { WheelUp = 1 } } },
@@ -136,7 +153,7 @@ config.hyperlink_rules = {
     --regex = '\\b\\w+://\\S+[)/a-zA-Z0-9-]+',
     --format = '$0',
     -- After
-    regex = '[^(]\\b(\\w+://\\S+[)/a-zA-Z0-9-]+)',
+    regex = '[^(]\\b(\\w+://\\S+[)/=a-zA-Z0-9-]+)',
     format = '$1',
     highlight = 1,
   },
