@@ -143,6 +143,7 @@ set laststatus=2
 let g:airline#extensions#vimagit#enabled=1
 let g:airline#extensions#branch#enabled=1
 let g:airline#extensions#keymap#enabled=0
+let g:airline#extensions#tagbar#enabled=0
 " more compact position section
 let g:airline_section_z="%1p%%%#__accent_bold#%{g:airline_symbols.linenr}%2l/%L%{g:airline_symbols.maxlinenr}%#__restore__#:%2v"
 
@@ -190,13 +191,13 @@ au FileType go nmap <Leader>b :GoBuild! -race<CR>
 au FileType go nmap <Leader>t <Plug>(go-test)
 au FileType go nmap <Leader>c <Plug>(go-coverage)
 au FileType go nmap <Leader>h <Plug>(go-referrers)
-au FileType go nmap <Leader>dd <Plug>(go-def)
-au FileType go nmap <Leader>ds <Plug>(go-def-split)
-au FileType go nmap <Leader>dv <Plug>(go-def-vertical)
-au FileType go nmap <Leader>dt <Plug>(go-def-tab)
-au FileType go nmap <Leader>gd <Plug>(go-doc)
-au FileType go nmap <Leader>gv <Plug>(go-doc-vertical)
-au FileType go nmap <Leader>gt <Plug>(go-doc-tab)
+au FileType go nmap <Leader>gd <Plug>(go-def)
+au FileType go nmap <Leader>gs <Plug>(go-def-split)
+au FileType go nmap <Leader>gv <Plug>(go-def-vertical)
+au FileType go nmap <Leader>gt <Plug>(go-def-tab)
+au FileType go nmap <Leader>dd <Plug>(go-doc)
+au FileType go nmap <Leader>dv <Plug>(go-doc-vertical)
+au FileType go nmap <Leader>dt <Plug>(go-doc-tab)
 au FileType go nmap <Leader>ce <Plug>(go-callees)
 au FileType go nmap <Leader>cr <Plug>(go-callers)
 let g:go_addtags_transform = 'lispcase'
@@ -239,7 +240,7 @@ let g:ale_go_gometalinter_options = '--fast'
 " use most of linters for golang
 let g:ale_linters = {
       \ 'cpp': ['clangcheck'],
-      \ 'go': ['gometalinter', 'gofmt', 'golint', 'go vet', 'go build']
+      \ 'go': ['gometalinter', 'gofmt', 'golint', 'go vet', 'go build'],
       \}
 let g:ale_fixers = {
       \ 'python': ['black', 'isort'],
@@ -252,6 +253,7 @@ let g:ale_terraform_terraform_executable = 'tofu'
 let g:ale_fix_on_save = 1
 let g:ale_cursor_detail = 1
 set previewheight=6
+let g:ale_openscad_sca2d_options='--ignore=I0004'
 
 " YouCompleteMe
 " Pop up the hover in 1.5 secs
@@ -264,13 +266,34 @@ let g:ycm_goto_buffer_command = 'new-tab'
 let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_clangd_args = ['-log=verbose', '-pretty', '-background-index', '-header-insertion=never']
 nnoremap <leader>gt :YcmCompleter GoTo<CR>
+nnoremap <leader>gr :YcmCompleter GoToReferences<CR>
+nnoremap <leader>gi :YcmCompleter GoToImplementation<CR>
+let g:ycm_enable_inlay_hints = 1
+let g:ycm_clear_inlay_hints_in_insert_mode = 1
+let g:ycm_update_diagnostics_in_insert_mode = 0
+
+let g:ycm_completer_settings = {
+\  'rust': {
+\    'diagnostics': {
+\      'disabled': [
+\        'inactive-code',
+\      ]
+\    },
+\  },
+\  'rust-analyzer': {},
+\}
 
 let g:ycm_language_server = [
-      \ {
-      \   'name': 'terraform',
-      \   'filetypes': ['terraform'],
-      \   'cmdline': ['terraform-ls', 'serve']
-      \ }
+\ {
+\   'name': 'terraform',
+\   'filetypes': ['terraform'],
+\   'cmdline': ['terraform-ls', 'serve']
+\ },
+\ {
+\   'name': 'openscad',
+\   'filetypes': ['openscad'],
+\   'cmdline': ['openscad-lsp', '--stdio'],
+\ },
 \]
 
 " UtilSnippet

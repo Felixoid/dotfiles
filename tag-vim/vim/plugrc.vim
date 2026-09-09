@@ -35,12 +35,11 @@ Plug 'scrooloose/nerdtree'
 Plug 'chr4/nginx.vim'
 if s:poetry | Plug 'petobens/poet-v' | endif
 if s:py | Plug 'python-mode/python-mode', { 'branch': 'develop' } | endif
-" Plug 'luochen1990/rainbow'
 Plug 'junegunn/rainbow_parentheses.vim'
 Plug 'saltstack/salt-vim'
 Plug 'vim-syntastic/syntastic', { 'on': 'SyntasticReset' }
 Plug 'godlygeek/tabular'
-Plug 'majutsushi/tagbar'
+Plug 'preservim/tagbar'
 if s:py3 | Plug 'SirVer/ultisnips' | endif
 Plug 'junegunn/vader.vim'
 Plug 'vim-airline/vim-airline'
@@ -55,7 +54,6 @@ Plug 'fatih/vim-go', { 'for': 'go', 'do': ':GoUpdateBinaries' }
 if s:guttentags_reqs | Plug 'ludovicchabant/vim-gutentags' | endif
 Plug 'vim-latex/vim-latex'
 Plug 'andymass/vim-matchup'
-Plug 'lifepillar/vim-mucomplete', { 'on': 'MUcompleteAutoOn' }
 Plug 'jistr/vim-nerdtree-tabs'
 Plug 'jceb/vim-orgmode' | Plug 'tpope/vim-speeddating'
 Plug 'lifepillar/vim-outlaw'
@@ -73,17 +71,6 @@ Plug 'tpope/vim-unimpaired'
 Plug 'jasonccox/vim-wayland-clipboard'
 Plug 'lervag/vimtex'
 call plug#end()
-
-" Load vim-mucomplete if there's no YCM
-if !isdirectory(g:plug_home . '/YouCompleteMe')
-  au VimEnter * silent! MUcompleteAutoOn
-  set completeopt+=menuone,menu
-  if has('patch-7.4.775')
-    set completeopt+=noinsert
-  else
-    set completeopt-=longest
-  end
-end
 
 augroup plug_xtype
     autocmd FileType * if expand('<amatch>') != 'tab' | call plug#load('auto-pairs') | call AutoPairsTryInit() | endif
