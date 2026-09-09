@@ -47,7 +47,7 @@ fi
 if [ -r ~/.config/zsh/command-time.plugin.zsh ]; then
   source ~/.config/zsh/command-time.plugin.zsh
   typeset -F SECONDS
-  ZSH_COMMAND_TIME_MIN_SECONDS=0
+  ZSH_COMMAND_TIME_MIN_SECONDS=1
 fi
 
 function zle-line-init zle-keymap-select {
