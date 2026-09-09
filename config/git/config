@@ -41,10 +41,11 @@
 [includeIf "gitdir:/tmp"]
   path = ~/.config/git/git-personal
 [url "ssh://git@github.com"]
-	insteadOf = https://github.com
+  insteadOf = https://github.com
 [alias]
   # the final '#' is important to ignore the remaining positional arguments
   cnb = "!git checkout --no-track -B \"$1\" \"${2:-origin/HEAD}\" ${@:3} #"
   ria = "!git rebase \"${1:-origin/HEAD}\" -i --autosquash ${@:2} #"
   pf = push --force-with-lease
   st = status --ignore-submodules=dirty
+  cleangone = "!git branch -vv | grep ': gone]' | awk '{print $1}' | xargs -r git branch -d"
