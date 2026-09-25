@@ -12,19 +12,22 @@ config.automatically_reload_config = true
 -- support kitty keyboard protocol, breaks pi instead of working
 config.enable_kitty_keyboard = true
 
--- cursor
-
+-- cursor (X11/GNOME only)
 local xcursor_size = nil
 local xcursor_theme = nil
 
-local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-theme"})
-if success then
-  xcursor_theme = stdout:gsub("'(.+)'\n", "%1")
-end
+if wezterm.target_triple:find('linux') then
+  local success, stdout = wezterm.run_child_process(
+    {"gsettings", "get", "org.gnome.desktop.interface", "cursor-theme"})
+  if success then
+    config.xcursor_theme = stdout:gsub("'(.+)'\n", "%1")
+  end
 
-local success, stdout, stderr = wezterm.run_child_process({"gsettings", "get", "org.gnome.desktop.interface", "cursor-size"})
-if success then
-  xcursor_size = tonumber(stdout)
+  success, stdout = wezterm.run_child_process(
+    {"gsettings", "get", "org.gnome.desktop.interface", "cursor-size"})
+  if success then
+    config.xcursor_size = tonumber(stdout)
+  end
 end
 
 config.xcursor_theme = xcursor_theme
@@ -83,6 +86,15 @@ config.mouse_bindings = {
     mods = 'SHIFT',
     action = act.ScrollByPage(1),
   },
+  -- MacOS: shift + trackball turns vertical scrolling to horisontal
+  {
+    event = { Down = { streak = 1, button = { WheelLeft = 1 } } },
+    action = act.ScrollByPage(-1),
+  },
+  {
+    event = { Down = { streak = 1, button = { WheelRight = 1 } } },
+    action = act.ScrollByPage(1),
+  },
   -- Do not open links on a simple click
   {
     event = { Up = { streak = 1, button = "Left" } },
@@ -116,6 +128,22 @@ config.keys = {
     key = "r",
     mods = 'CTRL|SHIFT|ALT',
     action = act.RotatePanes 'Clockwise',
+  },
+  {
+    key = '|',
+    mods = 'CTRL|SHIFT|ALT',
+    action = act.SplitPane({
+      direction = "Right",
+      top_level = true,
+    }),
+  },
+  {
+    key = '_',
+    mods = 'CTRL|SHIFT|ALT',
+    action = act.SplitPane({
+      direction = "Down",
+      top_level = true,
+    }),
   },
 }
 
