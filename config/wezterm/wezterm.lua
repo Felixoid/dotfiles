@@ -75,24 +75,15 @@ config.mouse_bindings = {
     action = act.ScrollByPage(0.2),
     alt_screen = false,
   },
-  -- Scrolling up while holding SHIFT scrolls by pages
+  -- Scrolling up while holding CTRL scrolls by pages. Shift+Wheel on MacOS produces horizontal signals
   {
     event = { Down = { streak = 1, button = { WheelUp = 1 } } },
-    mods = 'SHIFT',
+    mods = 'CTRL',
     action = act.ScrollByPage(-1),
   },
   {
     event = { Down = { streak = 1, button = { WheelDown = 1 } } },
-    mods = 'SHIFT',
-    action = act.ScrollByPage(1),
-  },
-  -- MacOS: shift + trackball turns vertical scrolling to horisontal
-  {
-    event = { Down = { streak = 1, button = { WheelLeft = 1 } } },
-    action = act.ScrollByPage(-1),
-  },
-  {
-    event = { Down = { streak = 1, button = { WheelRight = 1 } } },
+    mods = 'CTRL',
     action = act.ScrollByPage(1),
   },
   -- Do not open links on a simple click
@@ -145,6 +136,11 @@ config.keys = {
       top_level = true,
     }),
   },
+  {
+    key = "w",
+    mods = "WIN",
+    action = act.DisableDefaultAssignment,
+  }
 }
 
 -- Overwrite the hyperlink_rules to address markdown issue
