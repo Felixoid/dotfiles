@@ -1,0 +1,28 @@
+{
+  "retry": {
+    "enabled": true,
+    "maxRetries": 3,
+    "baseDelayMs": 2000,
+    "provider": {
+      "timeoutMs": 120000,
+      "maxRetries": 0,
+      "maxRetryDelayMs": 60000
+    }
+  },
+  "skills": [
+    "/home/felixoid/Space/Felixoid/github/ClickHouse/ClickHouse/.claude/skills"
+  ],
+  "httpIdleTimeoutMs": 60000,
+  "lastChangelogVersion": "0.85.1",
+  "defaultProvider": "anthropic",
+  "enableSkillCommands": true,
+  "packages": [
+    "npm:@the-forge-flow/gh-pi",
+    "npm:@tianhai/pi-workflow-kit",
+    "npm:@felixoid/py-yank",
+    "npm:pi-multiagent",
+    "npm:pi-lens"
+  ],
+  "hideThinkingBlock": false,
+  "theme": "dark"
+}
