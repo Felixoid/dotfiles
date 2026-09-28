@@ -1,5 +1,5 @@
 # Include bash profile by default
-grep -q "source /etc/profile" /etc/zsh/zprofile || \
+grep -q "source /etc/profile" /etc/zsh/zprofile 2>/dev/null || \
   emulate sh -c 'source /etc/profile'
 
 zstyle :compinstall filename "${HOME}/.zshrc"

@@ -138,3 +138,7 @@ fi
 
 # I use keepassxc to manage ssh keys, so don't invoke unlock-rsa automatically
 #unlock-rsa
+
+# MacOS
+[ $(uname) = Darwin ] && . ${HOME}/.config/shells/macos
+#
