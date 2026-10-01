@@ -1,3 +1,11 @@
 #!/bin/bash
 [ -d /opt/homebrew/bin ] && export PATH="/opt/homebrew/bin:$PATH"
 export CLICOLOR=1
+
+eval $(brew shellenv)
+
+# brew's _git wraps git-completion.bash, which offers only refs for --fixup=
+if [ -n "$ZSH_VERSION" ]; then
+  typeset -U fpath
+  fpath=(${(M)fpath:#*/functions} $fpath)
+fi

@@ -109,6 +109,7 @@ config.mouse_bindings = {
   },
 }
 
+config.key_map_preference = 'Physical'
 config.keys = {
   {
     key = "r",
