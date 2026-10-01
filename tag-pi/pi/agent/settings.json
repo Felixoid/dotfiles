@@ -9,12 +9,8 @@
       "maxRetryDelayMs": 60000
     }
   },
-  "skills": [
-    "/home/felixoid/Space/Felixoid/github/ClickHouse/ClickHouse/.claude/skills"
-  ],
   "httpIdleTimeoutMs": 60000,
   "lastChangelogVersion": "0.87.1",
-  "defaultProvider": "anthropic",
   "enableSkillCommands": true,
   "packages": [
     "npm:@the-forge-flow/gh-pi",
@@ -24,6 +20,5 @@
     "npm:pi-lens"
   ],
   "hideThinkingBlock": false,
-  "theme": "dark",
-  "defaultModel": "claude-opus-4-8"
+  "theme": "dark"
 }

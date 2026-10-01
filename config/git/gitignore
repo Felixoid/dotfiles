@@ -1,3 +1,6 @@
 *.sw?
 .ropeproject
 *.pyc
+
+# Directory with agents' working files
+pi-progress/
