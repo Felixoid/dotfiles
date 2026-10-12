@@ -9,3 +9,8 @@ if [ -n "$ZSH_VERSION" ]; then
   typeset -U fpath
   fpath=(${(M)fpath:#*/functions} $fpath)
 fi
+
+# UV
+PATH="$PATH:$HOME/.local/bin"
+# GNU coreutils
+PATH="/opt/homebrew/opt/coreutils/libexec/gnubin:$PATH"

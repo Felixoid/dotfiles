@@ -1,4 +1,8 @@
 #!/bin/bash
+# MacOS
+[ $(uname) = Darwin ] && . ${HOME}/.config/shells/macos
+#
+
 # PATH
 # Append our default paths
 _appendpath () {
@@ -42,10 +46,10 @@ export VISUAL=vim
 export QT_QPA_PLATFORMTHEME=qt5ct
 
 # enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
+if command -v dircolors >/dev/null 2>&1; then
   if [ -r ~/.dircolors ]
-    then eval "$(/usr/bin/dircolors -b ~/.dircolors)"
-    else eval "$(/usr/bin/dircolors -b)"
+    then eval "$(dircolors -b ~/.dircolors)"
+    else eval "$(dircolors -b)"
   fi
   alias ls='ls --color=auto'
 
@@ -138,7 +142,3 @@ fi
 
 # I use keepassxc to manage ssh keys, so don't invoke unlock-rsa automatically
 #unlock-rsa
-
-# MacOS
-[ $(uname) = Darwin ] && . ${HOME}/.config/shells/macos
-#
