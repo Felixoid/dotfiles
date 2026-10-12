@@ -88,7 +88,7 @@ user's own `Felixoid/*` repos. Drop clearly unrelated external side projects
 The script lives next to this SKILL.md:
 
 ```bash
-python3 /home/felixoid/.pi/agent/skills/work-report/pi-sessions.py \
+python3 "$HOME/.pi/agent/skills/work-report/pi-sessions.py" \
     --since $SINCE --until $UNTIL \
     > "${GIT_ROOT:-.}/pi-progress/pi-sessions-${SINCE}_${UNTIL}.md"
 ```
@@ -96,30 +96,38 @@ python3 /home/felixoid/.pi/agent/skills/work-report/pi-sessions.py \
 ## Step 4 -- Delegate composition to `user:report-writer`
 
 Once both raw files exist, spawn a subagent on `claude-sonnet-4-6` to do the
-actual summarization -- no need to burn expensive parent tokens on it:
+actual summarization -- no need to burn expensive parent tokens on it.
 
+The `agent_team` call must contain **exactly two top-level fields: `action` and
+`graph`**. Do not send `graphFile`, `library`, `options`, `runId`, `cursor`,
+`stepId`, `waitSeconds`, `maxBytes`, `preview`, `debugEvents`, `channel`,
+`text`, `clientMessageId`, or `reason`, not even as empty strings or defaults:
+`start` rejects all of them. Inside `agent`, set only `ref` and `model`: never
+both `ref` and `system`.
+
+```json
+{
+  "action": "start",
+  "graph": {
+    "objective": "Write a work report for <SINCE> to <UNTIL>",
+    "library": { "sources": ["user"] },
+    "authority": { "allowFilesystemRead": true, "allowMutationTools": true },
+    "steps": [
+      {
+        "id": "write-report",
+        "agent": { "ref": "user:report-writer", "model": "anthropic/claude-sonnet-4-6" },
+        "task": "Read the raw inputs and write the report.\n\nPi sessions: <path>\nDid output: <path>\nPeriod: <SINCE> to <UNTIL>\n\nWrite the final report to: <path to report file>"
+      }
+    ]
+  }
+}
 ```
-agent_team start:
-  graph:
-    objective: "Write a work report for <period>"
-    authority:
-      allowFilesystemRead: true
-      allowMutationTools: true
-    steps:
-      - id: write-report
-        agent:
-          ref: user:report-writer
-        task: |
-          Read the raw inputs and write the report.
 
-          Pi sessions: <path to pi-sessions output>
-          Did output:  <path to did sidecar file>
-          Period:      <SINCE> to <UNTIL>
+`graph.library.sources: ["user"]` is required, otherwise `user:report-writer`
+does not resolve.
 
-          Write the final report to: <path to report file>
-```
-
-Wait for the run to finish, then show the user the report path.
+Wait for the pushed final notice (or `run_status` with only `action`, `runId`,
+`waitSeconds`), then show the user the report path.
 
 ## Step 5 -- (legacy) Compose the report manually
 
