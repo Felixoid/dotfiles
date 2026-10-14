@@ -111,15 +111,52 @@ clickThrough:start()
 
 -- Slack has no macOS menu bar icon; mirror its Dock badge instead.
 local SLACK = "com.tinyspeck.slackmacgap"
-slackBar = hs.menubar.new()
-slackBar:setIcon(hs.image.imageFromAppBundle(SLACK):setSize({ w = 18, h = 18 }))
-slackBar:setClickCallback(function() hs.application.launchOrFocusByBundleID(SLACK) end)
+local function slackApp() return hs.application.get(SLACK) end
 
-local function updateSlack()
+local slackIcon = hs.image.imageFromAppBundle(SLACK):setSize({ w = 18, h = 18 })
+slackBar = nil
+
+-- A menubar item with a menu never fires its click callback, so right click gets a separate popup.
+slackMenu = hs.menubar.new(false):setMenu(function()
+  return {
+    { title = "Open Slack", fn = function() hs.application.launchOrFocusByBundleID(SLACK) end },
+    { title = "-" },
+    { title = "Quit Slack", fn = function() local a = slackApp() if a then a:kill() end end },
+  }
+end)
+
+slackRightClick = hs.eventtap.new({ hs.eventtap.event.types.rightMouseDown }, function(e)
+  local f = slackBar and slackBar:frame()
+  if not f or not hs.geometry.point(e:location()):inside(f) then return false end
+  hs.timer.doAfter(0, function() slackMenu:popupMenu({ x = f.x, y = f.y + f.h }) end)
+  return true
+end)
+slackRightClick:start()
+
+-- returnToMenuBar() drops the icon, so recreate the item instead of hiding it.
+local function updateSlack(running)
+  if running == nil then running = slackApp() ~= nil end
+  if not running then
+    if slackBar then slackBar:delete() slackBar = nil end
+    return
+  end
+  if not slackBar then
+    -- A fixed autosave name lets macOS and Ice keep the position across recreations.
+    slackBar = hs.menubar.new(true, "SlackBadge"):setIcon(slackIcon, false)
+    slackBar:setClickCallback(function() hs.application.launchOrFocusByBundleID(SLACK) end)
+  end
   local out = hs.execute([[lsappinfo info -only StatusLabel "Slack"]])
   local label = out:match('"label"="([^"]*)"')
   slackBar:setTitle(label ~= "" and label or nil)
 end
 
-slackTimer = hs.timer.doEvery(5, updateSlack)
+slackWatcher = hs.application.watcher.new(function(_, event, app)
+  if app and app:bundleID() == SLACK then
+    if event == hs.application.watcher.launched then updateSlack(true)
+    elseif event == hs.application.watcher.terminated then updateSlack(false) end
+  end
+end)
+slackWatcher:start()
+
+slackTimer = hs.timer.doEvery(5, function() updateSlack() end)
 updateSlack()
