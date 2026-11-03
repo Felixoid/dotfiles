@@ -1,0 +1,26 @@
+{
+  "title": "Shift+Insert = paste",
+  "rules": [
+    {
+      "description": "Shift+Insert -> Cmd+V (paste)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "insert",
+            "modifiers": {
+              "mandatory": ["shift"],
+              "optional": ["caps_lock"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "v",
+              "modifiers": ["command"]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

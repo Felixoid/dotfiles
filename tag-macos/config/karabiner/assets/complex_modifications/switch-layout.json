@@ -1,0 +1,41 @@
+{
+  "title": "Caps Lock cycles input sources",
+  "rules": [
+    {
+      "description": "Shift+Caps Lock -> real Caps Lock",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "caps_lock", "modifiers": { "mandatory": ["shift"] } },
+          "to": [{ "key_code": "caps_lock", "hold_down_milliseconds": 100 }]
+        }
+      ]
+    },
+    {
+      "description": "Caps Lock -> cycle input source (US -> Russian -> US)",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": { "key_code": "caps_lock", "modifiers": { "optional": ["any"] } },
+          "to": [{ "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.RussianWin$" } }],
+          "conditions": [
+            { "type": "input_source_if", "input_sources": [{ "input_source_id": "^com\\.apple\\.keylayout\\.US$" }] }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "caps_lock", "modifiers": { "optional": ["any"] } },
+          "to": [{ "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.US$" } }],
+          "conditions": [
+            { "type": "input_source_if", "input_sources": [{ "input_source_id": "^com\\.apple\\.keylayout\\.RussianWin$" }] }
+          ]
+        },
+        {
+          "type": "basic",
+          "from": { "key_code": "caps_lock", "modifiers": { "optional": ["any"] } },
+          "to": [{ "select_input_source": { "input_source_id": "^com\\.apple\\.keylayout\\.US$" } }]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,40 @@
+{
+  "title": "Ctrl+Backspace = delete previous word (except terminals)",
+  "rules": [
+    {
+      "description": "Ctrl+Backspace -> Option+Backspace (delete word), disabled in terminals",
+      "manipulators": [
+        {
+          "type": "basic",
+          "from": {
+            "key_code": "delete_or_backspace",
+            "modifiers": {
+              "mandatory": ["control"],
+              "optional": ["caps_lock"]
+            }
+          },
+          "to": [
+            {
+              "key_code": "delete_or_backspace",
+              "modifiers": ["option"]
+            }
+          ],
+          "conditions": [
+            {
+              "type": "frontmost_application_unless",
+              "bundle_identifiers": [
+                "^com\\.github\\.wez\\.wezterm$",
+                "^com\\.googlecode\\.iterm2$",
+                "^com\\.apple\\.Terminal$",
+                "^net\\.kovidgoyal\\.kitty$",
+                "^org\\.alacritty$",
+                "^io\\.alacritty$",
+                "^dev\\.warp\\.Warp-Stable$"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
