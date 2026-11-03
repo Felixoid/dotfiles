@@ -24,6 +24,8 @@
  * - Uses existing session name or asks user with suggestions from existing dirs
  * - Prompts user for permission on blocked writes, remembers choice for session
  * - Prefix overrides refuse "/" and $HOME as too broad
+ * - Prompts time out (and block) after `gitRootProtection.promptTimeoutMs` from
+ *   settings.json (default 30000; 0 waits forever)
  */
 
 import { existsSync, mkdirSync, readdirSync } from "node:fs";
@@ -47,6 +49,48 @@ interface BashConcern {
 	signature: string; // stable key for override memory
 	detail: string; // human-readable description
 	targetPath?: string; // resolved absolute path the concern points to (when applicable)
+}
+
+const DEFAULT_PROMPT_TIMEOUT_MS = 30_000;
+
+/** `gitRootProtection.promptTimeoutMs` in settings.json; 0 disables the timeout. */
+function promptTimeoutMs(pi: ExtensionAPI): number {
+	const raw = (pi.getSettings() as { gitRootProtection?: { promptTimeoutMs?: unknown } })
+		.gitRootProtection?.promptTimeoutMs;
+	return typeof raw === "number" && raw >= 0 ? raw : DEFAULT_PROMPT_TIMEOUT_MS;
+}
+
+interface DialogOpts {
+	timeout?: number;
+	signal?: AbortSignal;
+}
+
+/** Run a dialog with the configured timeout; `timedOut` separates silence from an explicit cancel. */
+async function ask<T>(
+	pi: ExtensionAPI,
+	signal: AbortSignal | undefined,
+	show: (opts: DialogOpts) => Promise<T | undefined>,
+): Promise<{ value: T | undefined; timedOut: boolean }> {
+	const timeout = promptTimeoutMs(pi);
+	const started = Date.now();
+	const value = await show({ timeout: timeout > 0 ? timeout : undefined, signal });
+	const timedOut = value === undefined && timeout > 0 && Date.now() - started >= timeout;
+	return { value, timedOut };
+}
+
+/** pi ignores `input()` placeholders and cannot prefill, so an empty Enter accepts `fallback`. */
+async function inputWithDefault(
+	ui: { input(title: string, placeholder?: string, opts?: DialogOpts): Promise<string | undefined> },
+	title: string,
+	fallback: string,
+	opts: DialogOpts,
+): Promise<string | undefined> {
+	const value = await ui.input(`${title}\n[Enter = ${fallback}]`, fallback, opts);
+	return value === "" ? fallback : value;
+}
+
+function timeoutNote(pi: ExtensionAPI): string {
+	return `no user response within ${Math.round(promptTimeoutMs(pi) / 1000)}s`;
 }
 
 function findGitRoot(startPath: string): string | null {
@@ -355,15 +399,27 @@ export default function (pi: ExtensionAPI) {
 				? `within ${state.gitRoot} or ${state.piProgressDir}`
 				: `within ${state.cwd} or ${state.piProgressDir} (no git root)`;
 
-			const choice = await ctx.ui.select(
-				`⚠️ Bash command leaves safe zone\n\n${summary}\n\nCommand:\n  ${cmd}\n\nAllowed: ${safeZoneDesc}\n\nAllow this command?`,
-				[
-					"✓ Yes, allow (once)",
-					"✗ No, block",
-					"⊕ Allow & remember exact paths for session",
-					"⊕ Allow a prefix & remember for session",
-				],
+			const { value: choice, timedOut } = await ask(pi, ctx.signal, (opts) =>
+				ctx.ui.select(
+					`⚠️ Bash command leaves safe zone\n\n${summary}\n\nCommand:\n  ${cmd}\n\nAllowed: ${safeZoneDesc}\n\nAllow this command?`,
+					[
+						"✓ Yes, allow (once)",
+						"✗ No, block",
+						"⊕ Allow & remember exact paths for session",
+						"⊕ Allow a prefix & remember for session",
+					],
+					opts,
+				),
 			);
+
+			if (timedOut) {
+				return {
+					block: true,
+					reason:
+						`Bash blocked (${timeoutNote(pi)}), filesystem-escape patterns detected:\n${summary}\n` +
+						`Safe zone: ${state.gitRoot ?? state.cwd} (+ pi-progress/)`,
+				};
+			}
 
 			if (choice === "⊕ Allow & remember exact paths for session") {
 				for (const c of concerns) state.bashOverrides.add(c.signature);
@@ -384,14 +440,12 @@ export default function (pi: ExtensionAPI) {
 				}
 				const dirs = pathConcerns.map((c) => dirname(c.targetPath!));
 				const suggested = commonAncestorDir(dirs) ?? dirs[0];
-				const input = await ctx.ui.input(
-					"Allow which prefix for the session?",
-					{
-						defaultValue: suggested,
-						placeholder: "/absolute/path/prefix",
-						description:
-							"Everything at or under this path will pass silently for the rest of the session. Refuses / and $HOME.",
-					},
+				// No timeout: the user is already engaged with the dialog.
+				const input = await inputWithDefault(
+					ctx.ui,
+					"Allow which prefix for the session? (everything under it passes silently; refuses / and $HOME)",
+					suggested,
+					{ signal: ctx.signal },
 				);
 				if (!input) {
 					return { block: true, reason: `Bash blocked by user:\n${summary}` };
@@ -439,15 +493,13 @@ export default function (pi: ExtensionAPI) {
 					? existingDirs
 					: ["temp-work", "investigation", "debugging"];
 
-				const choice = await ctx.ui.input(
-					`Name this job for pi-progress tracking`,
-					{
-						defaultValue: suggestions[0] ?? "work",
-						placeholder: "e.g., refactor-auth, fix-bug, investigate-issue",
-						description: suggestions.length > 0
-							? `Suggestions: ${suggestions.join(", ")}`
-							: "Enter a name for this work session",
-					},
+				const { value: choice } = await ask(pi, ctx.signal, (opts) =>
+					inputWithDefault(
+						ctx.ui,
+						`Name this job for pi-progress tracking (suggestions: ${suggestions.join(", ")})`,
+						suggestions[0] ?? "work",
+						opts,
+					),
 				);
 
 				if (choice) {
@@ -501,15 +553,25 @@ export default function (pi: ExtensionAPI) {
 			? `within ${state.gitRoot} or ${state.piProgressDir}`
 			: `within ${state.cwd} or ${state.piProgressDir} (no git root)`;
 
-		const choice = await ctx.ui.select(
-			`⚠️ Write outside safe zone\n\nTarget: ${absPath}\n\nAllowed: ${safeZoneDesc}\n\nAllow this write?`,
-			[
-				"✓ Yes, allow (once)",
-				"✗ No, block",
-				"⊕ Allow this exact path & remember for session",
-				"⊕ Allow a prefix & remember for session",
-			],
+		const { value: choice, timedOut } = await ask(pi, ctx.signal, (opts) =>
+			ctx.ui.select(
+				`⚠️ Write outside safe zone\n\nTarget: ${absPath}\n\nAllowed: ${safeZoneDesc}\n\nAllow this write?`,
+				[
+					"✓ Yes, allow (once)",
+					"✗ No, block",
+					"⊕ Allow this exact path & remember for session",
+					"⊕ Allow a prefix & remember for session",
+				],
+				opts,
+			),
 		);
+
+		if (timedOut) {
+			return {
+				block: true,
+				reason: `Write blocked (${timeoutNote(pi)}, outside safe zone): ${absPath}`,
+			};
+		}
 
 		if (choice === "⊕ Allow this exact path & remember for session") {
 			state.userOverrides.set(absPath, true);
@@ -518,14 +580,12 @@ export default function (pi: ExtensionAPI) {
 
 		if (choice === "⊕ Allow a prefix & remember for session") {
 			const suggested = dirname(absPath);
-			const input = await ctx.ui.input(
-				"Allow which prefix for the session?",
-				{
-					defaultValue: suggested,
-					placeholder: "/absolute/path/prefix",
-					description:
-						"Everything at or under this path will pass silently for the rest of the session. Refuses / and $HOME.",
-				},
+			// No timeout: the user is already engaged with the dialog.
+			const input = await inputWithDefault(
+				ctx.ui,
+				"Allow which prefix for the session? (everything under it passes silently; refuses / and $HOME)",
+				suggested,
+				{ signal: ctx.signal },
 			);
 			if (!input) {
 				return { block: true, reason: `Write blocked by user: ${absPath}` };
